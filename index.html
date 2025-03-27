@@ -28,7 +28,7 @@
             <!-- 桌面导航菜单 -->
             <ul class="nav-links">
                 <li style="cursor: pointer;" onclick="smoothScrollTo('home')"><span  id="homeText">首页</span></li>
-                <li style="cursor: pointer;" onclick="smoothScrollTo('about')"><span  id="aboutText">关于</span></li>
+                <li style="cursor: pointer;" onclick="smoothScrollTo('aboutIndex')"><span  id="aboutText">关于</span></li>
                 <li style="cursor: pointer;" onclick="smoothScrollTo('buy')"><span  id="buyText">如何购买</span></li>
                 <li style="cursor: pointer;" onclick="smoothScrollTo('roadmap')"><span  id="roadmapText">时间线</span></li>
                 <li style="cursor: pointer;" onclick="smoothScrollTo('token')"><span  id="tokenText">代币经济</span></li>
@@ -193,7 +193,7 @@
             </p>
         </span>
     </div> -->
-    <div id="about" class="header-content" style="padding-bottom:50px;
+    <div id="aboutIndex" class="header-content" style="padding-bottom:50px;
             border-bottom: 5px solid black;
             display: flex;
             justify-content: center;
@@ -217,7 +217,7 @@
                min-width: 300px;
                max-width: 600px;
                padding: 20px 5%;">
-            <h1  style="font-family: MyCustomFont3;
+            <h1 id="about" style="font-family: MyCustomFont3;
                    text-align: center;
                    font-size: clamp(2rem, 5vw, 3rem);
                    margin-bottom: 1.5em;">
