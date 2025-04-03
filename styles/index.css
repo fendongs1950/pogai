@@ -41,6 +41,7 @@
             font-size:larger
         }
         /* 全局样式 */
+        
         :root {
             --primary-color: #4CAF50;
             --secondary-color: #FF6B6B;
@@ -225,6 +226,9 @@
             #hot-video{
                 width: 100%!important;
                 margin: 0!important;
+            }
+            *{
+                overflow-x: hidden;
             }
         }
         .flip-card-inner {
