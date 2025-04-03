@@ -95,7 +95,7 @@ const langData = {
         timeline4Title: "2025-02-24: 新纪元",
         timeline4Text: "CTO接管POGAI项目，并开始开发POGAI的下一代产品",
         timeline5Title: "2025-03-21: DAO成立",
-        timeline5Text: "DAO（Dec中心化自治组织，Decentralized Autonomous Organization）的成立标志着一种全新的组织形态和治理模式的诞生，其核心是通过区块链技术和智能合约实现去中心化的协作与决策",
+        timeline5Text: "DAO（Dec去中心化自治组织，Decentralized Autonomous Organization）的成立标志着一种全新的组织形态和治理模式的诞生，其核心是通过区块链技术和智能合约实现去中心化的协作与决策",
         cardTitle1: "无脸男",
         cardText1: "「你的‘脸’可以是包容万物的空白画布——今天想填入善意、好奇心，还是安静的陪伴？",
         cardTitle2: "中二宣言",
