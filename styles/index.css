@@ -525,8 +525,7 @@
 #go-to-buy span {
   position: relative;
   z-index: 1;
-  background: linear-gradient(90deg, #00ffd5, #00ff88);
-  text-shadow: 0 0 10px white;
+  background: linear-gradient(90deg, #fcfcfc, #00ff88);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
