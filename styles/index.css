@@ -435,7 +435,7 @@
                 width: 100%;
                 text-align: center;
                 transition: 0.3s;
-                padding: 1rem 0;
+                /* padding: 1rem 0; */
             }
 
             .nav-links.active {
