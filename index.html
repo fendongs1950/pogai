@@ -152,7 +152,7 @@
                 <li style="cursor: pointer;" onclick="smoothScrollTo('buy')"><span  id="buyText">如何购买</span></li>
                 <li style="cursor: pointer;" onclick="smoothScrollTo('token')"><span  id="tokenText">代币经济</span></li>
                 <li style="cursor: pointer;" onclick="smoothScrollTo('roadmap')"><span  id="roadmapText">时间线</span></li>
-                <li style="cursor: pointer;"><span  id="coin_analysis">代币分析</span></li>
+                <li style="cursor: pointer;" onclick="smoothScrollTo('pogai_tool')"><span  id="POGAI_tool">POGAI工具</span></li>
                 <li style="cursor: pointer;" onclick="switchLang('zh')"><span >简体中文</span></li>
                 <li style="cursor: pointer;" onclick="switchLang('en')"><span >English</span></li>
             </ul>
@@ -722,7 +722,7 @@ video.addEventListener('ended', function() {
     ">
             <div style="padding: 15px;">
                 <h3 style="color: #c084fc; margin-bottom: 20px; font-family: 'Arial', sans-serif;">
-                    <i class="fas fa-terminal fa-sm"></i> <span id="devText1">开发者自述</span>
+                    <i class="fas fa-terminal fa-sm"></i> <span id="devText1">社区建设</span>
                 </h3>
                 <ul style="list-style: none; padding: 0;">
                     <!-- <li style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
@@ -730,17 +730,18 @@ video.addEventListener('ended', function() {
                         <span id="devText2">开发者：POGAI社区成员 @Memes_168</span>
                     </li> -->
                     <li style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-users fa-lg" style="color: #c084fc;"></i>
+                        <i class="fas fa-users fa-lg"></i>
                         <span id="devText3">社区不是一个人的社区,建设需基础资源</span>
                     </li>
                     <li style="margin-bottom: 12px; cursor: pointer;" id="devWallet">
-                        <i class="fas fa-wallet fa-lg" style="color: #c084fc; margin-right: 8px;"></i>
+                        <i class="fas fa-wallet fa-lg" style="margin-right: 8px;"></i>
                         <span id="devText4">捐赠地址: 点击复制</span>
                     </li>
                 </ul>
             </div>
 
-            <!-- 友情链接 -->
+            <!-- 工具链接 -->
+            <span id="pogai_tool"></span>
             <div style="padding: 15px;">
                 <h3 style="color: #c084fc; margin-bottom: 20px; font-family: 'Arial', sans-serif;">
                     <i class="fas fa-link fa-sm"></i> <span id="devText5">工具链接</span>
@@ -755,15 +756,15 @@ video.addEventListener('ended', function() {
                             <span id="devText6">熊猫头生成器</span>
                         </a>
                     </li>
-                    <!-- <li style="margin-bottom: 12px;">
+                    <li style="margin-bottom: 12px;">
                         <a target="_blank" href="https://pogai.club/"
                             style="color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px;"
                             onmouseover="this.style.color='#7c3aed'" onmouseout="this.style.color='#fff'">
                             <i class="fas fa-globe fa-lg"></i>
                             
-                            <span id="devText7">官方1站</span>
+                            <span id="coin_analysis">合约AI检测</span>
                         </a>
-                    </li> -->
+                    </li>
                     <!-- <li style="margin-bottom: 12px;">
                         <a target="_blank" href="https://pogai.top/"
                             style="color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px;"
