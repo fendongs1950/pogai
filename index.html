@@ -130,51 +130,7 @@
         </div>
     </div>
 
-    <style>
-        /* 平板和桌面端布局 */
-        @media (min-width: 768px) {
-            #home.header-content {
-                flex-direction: row;
-                justify-content: center;
-                padding: 40px 30px;
-            }
-
-            #home>div:first-child {
-                padding: 0 5% 30px 5%;
-                max-width: 700px;
-            }
-
-            #home img {
-                max-width: 400px;
-                padding-right: 5%;
-            }
-        }
-
-        /* 移动端优化 */
-        @media (max-width: 480px) {
-            #mainTitle {
-                margin-bottom: 15px;
-            }
-
-            #subTitle {
-                text-align: left;
-                line-height: 1.5;
-            }
-
-            button#go-to-buy {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-            }
-
-            #home {
-                flex-direction: column !important;
-                padding-top: 20% !important;
-            }
-        }
-    </style>
+    
     <!-- <div class="header-content"
         style="padding-bottom:50px;border-bottom: 5px solid white;display: flex;justify-content: center;">
         <img src="/public/image/fight.png" alt="Pogai Logo"
@@ -193,7 +149,8 @@
             </p>
         </span>
     </div> -->
-    <div id="aboutIndex" class="header-content" style="padding-bottom:50px;
+    <span id="aboutIndex" style="height: 80px;display: block;width: 100vw;"></span>
+    <div class="header-content" style="padding-bottom:50px;
             border-bottom: 5px solid black;
             display: flex;
             justify-content: center;
@@ -234,47 +191,6 @@
                 <br>文化根基：基于全球通用的「Pogai」表情包，天然具备跨语言、跨地域的传播力。
             </p>
         </div>
-
-        <style>
-            /* 移动端适配 */
-            @media (max-width: 768px) {
-                .header-content {
-                    flex-direction: column;
-                    padding: 30px 15px !important;
-                }
-
-                .header-content>div {
-                    min-width: unset !important;
-                    max-width: 100% !important;
-                    padding: 20px 0 !important;
-                }
-
-                #about {
-                    margin-bottom: 1em !important;
-                }
-
-                #subTitle_about {
-                    text-align: left !important;
-                    font-size: 1rem !important;
-                    line-height: 1.6 !important;
-                }
-
-                #abouts img {
-                    max-width: 220px !important;
-                }
-            }
-
-            /* 小屏手机优化 */
-            @media (max-width: 480px) {
-                #about {
-                    font-size: 1.8rem !important;
-                }
-
-                #abouts img {
-                    max-width: 180px !important;
-                }
-            }
-        </style>
     </div>
     <!-- <div class="header-content" style="padding: 40px 20px; min-height: 100vh;">
         <span id="buy"></span>
@@ -379,8 +295,7 @@
             </div>
         </div>
     </div> -->
-    <div class="header-content" style="padding: 40px 20px; min-height: 100vh;">
-        <span id="buy"></span>
+    <div id="buy" class="header-content" style="padding: 40px 20px; min-height: 100vh;">
         <h1 id="buyText" style="display: flex;
                   width: 100%;
                   font-family: 'MyCustomFont3';
@@ -494,10 +409,11 @@
         </div>
     </div>
     <!-- 图表 -->
-    <div id="token" class="header-content" style="padding-bottom:50px;border-bottom: 5px solid black;">
-        <h1 id="tokenText"
-            style="display: block;width: 100vw;font-family: MyCustomFont3;text-align: center;font-size: xxx-large;text-align: center;">
-            代币经济</h1>
+    <span id="token" style="height: 80px;display: block;width: 100vw;"></span>
+    <div  class="header-content" style="padding-bottom:50px;border-bottom: 5px solid black;">
+        <h3 id="tokenText"
+            style="display: block;width: 100vw;font-family: MyCustomFont3;text-align: center;font-size: x-large;text-align: center;">
+            代币经济</h3>
         <div id="Chart"><span style="flex: 1;font-family: MyCustomFont3;text-align: right;padding-top: 20%;">
             <h3 id="ChartText1">发行总量</h3>
             <span>1,000,000,000</span>
@@ -509,7 +425,7 @@
     <!-- 主要内容 -->
     <main>
         <!-- 时间轴区 -->
-        <span id="roadmap"></span>
+        <span id="roadmap" style="height: 80px;display: block;width: 100vw;"></span>
         <h1 style="display: flex;width: 100vw;font-family: MyCustomFont3;justify-content: center;font-size: xxx-large;"
             id="roadmapText">时间线</h1>
         <section class="timeline">
@@ -706,7 +622,7 @@ video.addEventListener('ended', function() {
             <!-- 友情链接 -->
             <div style="padding: 15px;">
                 <h3 style="color: #c084fc; margin-bottom: 20px; font-family: 'Arial', sans-serif;">
-                    <i class="fas fa-link fa-sm"></i> <span id="devText5">友情链接</span>
+                    <i class="fas fa-link fa-sm"></i> <span id="devText5">工具链接</span>
                 </h3>
                 <ul style="list-style: none; padding: 0;">
                     <li style="margin-bottom: 12px;">
@@ -718,7 +634,7 @@ video.addEventListener('ended', function() {
                             <span id="devText6">熊猫头生成器</span>
                         </a>
                     </li>
-                    <li style="margin-bottom: 12px;">
+                    <!-- <li style="margin-bottom: 12px;">
                         <a target="_blank" href="https://pogai.club/"
                             style="color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px;"
                             onmouseover="this.style.color='#7c3aed'" onmouseout="this.style.color='#fff'">
@@ -726,7 +642,7 @@ video.addEventListener('ended', function() {
                             
                             <span id="devText7">官方1站</span>
                         </a>
-                    </li>
+                    </li> -->
                     <!-- <li style="margin-bottom: 12px;">
                         <a target="_blank" href="https://pogai.top/"
                             style="color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px;"
@@ -742,12 +658,12 @@ video.addEventListener('ended', function() {
             <!-- 社交媒体 -->
             <div style="padding: 15px;">
                 <h3 style="color: #c084fc; margin-bottom: 20px; font-family: 'Arial', sans-serif;">
-                    <i class="fas fa-heart fa-sm"></i>  <span id="devText9">关注</span>
+                    <i class="fas fa-heart fa-sm" ></i>  <span id="devText9">返馈</span>
                 </h3>
                 <div style="display: flex; gap: 15px; align-items: center;">
                     <div style="cursor:pointer;" id="devX">
-                        <i class="fab fa-twitter fa-lg" style="color: #1DA1F2;"></i>
-                        <span style="font-size: 15px; margin-left: 8px;">熊猫人-ShaDiao</span>
+                        <i class="fab fa-twitter fa-lg" ></i>
+                        <span style="font-size: 15px; margin-left: 8px;">ShaDiao</span>
                     </div>
                 </div>
             </div>
