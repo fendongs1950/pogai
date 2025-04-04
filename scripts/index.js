@@ -53,6 +53,10 @@ window.onload = async function () {
         e.preventDefault();
         openAdvancedTab('https://memeai.pogai.top/');
     });
+    document.getElementById('github_link').addEventListener('click', function (e) {
+        e.preventDefault();
+        openAdvancedTab('https://fendongs1950.github.io/pogai/');
+    });
     // 创建图表
     const ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, config);
@@ -128,7 +132,7 @@ const langData = {
         devText3:"社区不是一个人的社区,建设需基础资源",
         devText4:"捐赠地址: 点击复制",
         devText5:"友情链接",
-        devText6:"熊猫头生成器",
+        devText6:"熊猫头合成器",
         devText7:"官方1站",
         devText8:"官方2站",
         devText9:"返馈",
