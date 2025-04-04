@@ -19,12 +19,132 @@
 <body>
     <header class="nav-container">
         <nav class="navbar">
-            <span style="display: flex; align-items: center;">
+            <!-- <span style="display: flex; align-items: center;">
                 <img style="align-items: center;width: 50px;margin-right: 20px;" src="images/logo.png" alt="Pogai Logo"
                     class="logo">
                 <span style="align-items: center;" id="logoText">POGAI</span>
-            </span>
-
+            </span> -->
+            <span style="display: flex; align-items: center; cursor: pointer; position: relative;" id="audioPlayerContainer">
+                <img style="width: 50px; height: 50px; margin-right: 20px; border-radius: 50%; transition: all 0.3s ease;" 
+                     src="images/logo.png" alt="Pogai Logo" class="logo" id="audioTrigger">
+                <span id="logoText">POGAI</span>
+                
+                <!-- 隐藏的音频元素 -->
+                <audio id="avatarAudio" preload="auto">
+                  <source src="./images/Pogai.mp3" type="audio/mpeg">
+                  您的浏览器不支持音频元素
+                </audio>
+                
+                <!-- 音符元素容器 -->
+                <div id="notesContainer" style="position: absolute; left: 25px; top: 0; pointer-events: none;"></div>
+              </span>
+              
+              <style>
+                /* 泡泡动画 */
+                @keyframes bubble {
+                  0% { transform: scale(1); }
+                  25% { transform: scale(1.15); }
+                  50% { transform: scale(0.95); }
+                  75% { transform: scale(1.1); }
+                  100% { transform: scale(1); }
+                }
+                
+                .playing-bubble {
+                  animation: bubble 0.8s infinite ease-in-out;
+                  box-shadow: 0 0 15px rgba(100, 200, 255, 0.7);
+                }
+                
+                /* 音符动画 */
+                .music-note {
+                  position: absolute;
+                  font-size: 18px;
+                  color: rgba(255, 215, 0, 0.8);
+                  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+                  animation: float-up 2s ease-out forwards;
+                  user-select: none;
+                }
+                
+                @keyframes float-up {
+                  0% { 
+                    transform: translateY(0) scale(0.8); 
+                    opacity: 1;
+                  }
+                  100% { 
+                    transform: translateY(-100px) scale(1.2); 
+                    opacity: 0;
+                  }
+                }
+              </style>
+              
+              <script>
+                const audio = document.getElementById('avatarAudio');
+                const trigger = document.getElementById('audioTrigger');
+                const notesContainer = document.getElementById('notesContainer');
+                let noteInterval;
+                
+                // 音符符号数组
+                const notes = ['♪', '♫', '♩', '♬', '♭', '♮', '♯'];
+                
+                // 创建随机音符
+                function createNote() {
+                  const note = document.createElement('div');
+                  note.className = 'music-note';
+                  note.textContent = notes[Math.floor(Math.random() * notes.length)];
+                  
+                  // 随机水平位置 (-15px 到 15px)
+                  const leftPos = 25 + (Math.random() * 30 - 15);
+                  note.style.left = `${leftPos}px`;
+                  
+                  // 随机动画延迟 (0s 到 0.5s)
+                  note.style.animationDelay = `${Math.random() * 0.3}s`;
+                  
+                  notesContainer.appendChild(note);
+                  
+                  // 动画结束后移除元素
+                  setTimeout(() => {
+                    note.remove();
+                  }, 2000);
+                }
+                
+                // 点击头像播放/暂停
+                trigger.addEventListener('click', function() {
+                  if (audio.paused) {
+                    audio.play()
+                      .then(() => {
+                        trigger.classList.add('playing-bubble');
+                        // 开始生成音符 (每300ms一个)
+                        noteInterval = setInterval(createNote, 300);
+                      })
+                      .catch(e => console.log('播放失败:', e));
+                  } else {
+                    audio.pause();
+                    audio.currentTime = 0;
+                    trigger.classList.remove('playing-bubble');
+                    // 停止生成音符
+                    clearInterval(noteInterval);
+                  }
+                });
+                
+                // 音频结束时自动停止动画和音符
+                audio.addEventListener('ended', () => {
+                  trigger.classList.remove('playing-bubble');
+                  clearInterval(noteInterval);
+                });
+                
+                // 悬停效果
+                trigger.addEventListener('mouseenter', () => {
+                  if(audio.paused) {
+                    trigger.style.transform = 'scale(1.1)';
+                  }
+                });
+                
+                trigger.addEventListener('mouseleave', () => {
+                  if(audio.paused) {
+                    trigger.style.transform = 'scale(1)';
+                  }
+                });
+              </script>
+              
             <!-- 桌面导航菜单 -->
             <ul class="nav-links">
                 <li style="cursor: pointer;" onclick="smoothScrollTo('home')"><span  id="homeText">首页</span></li>
