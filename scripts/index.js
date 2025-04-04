@@ -127,7 +127,7 @@ const langData = {
         devText6:"熊猫头生成器",
         devText7:"官方1站",
         devText8:"官方2站",
-        devText9:"关注",
+        devText9:"返馈",
         daoText:"参与治理"
     },  
     en: {
@@ -140,7 +140,7 @@ const langData = {
         devText6:"Panda Head Generator",
         devText7:"official hub",
         devText8:"official secondary site",
-        devText9:"Follow",
+        devText9:"Refeed",
         ChartText1:"Token Supply",
         ChartText2:"No Taxes, No Bullshit. It’s that simple.",
         ChartText3:"LP tokens are burnt, and contract ownership is renounced.",
@@ -441,7 +441,7 @@ function openAdvancedTab(url, { focus = true } = {}) {
 }
 
 const data = {
-    labels: ['CZ持仓(空投)', '公平发射'],
+    labels: ['CZ holdings (drop)', 'fair launch '],
     datasets: [{
         label: '数据分布',
         data: [4, 96],
@@ -465,8 +465,8 @@ const config = {
         maintainAspectRatio: false,
         layout: {
             padding: {
-                top: 40,
-                bottom: 40
+                top: 20,
+                bottom: 20
             }
         },
         plugins: {
@@ -477,7 +477,7 @@ const config = {
                     return bgColor.startsWith('rgba(255,') ? '#333' : '#fff';
                 },
                 font: {
-                    size: 14,
+                    size: 8,
                     weight: 'bold',
                     family: 'Arial'
                 },
@@ -500,7 +500,7 @@ const config = {
             },
             title: {
                 display: true,
-                text: '代币分配比例',
+                text: 'scale',
                 font: { size: 18, weight: 'bold' }
             },
             legend: {
