@@ -43,7 +43,7 @@
         /* 全局样式 */
         
         :root {
-            --primary-color: #4CAF50;
+            --primary-color: #88f28b;
             --secondary-color: #FF6B6B;
             --accent-color: #F9CA24;
         }
@@ -230,6 +230,9 @@
             html{
                 overflow-x: hidden;
             }
+            .timeline,.timeline-item:nth-child(2n+1){
+                text-align: center !important;
+            }
         }
         .flip-card-inner {
             position: relative;
@@ -283,7 +286,7 @@
         }
 
         .contact-card {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.5);
             padding: 25px;
             border-radius: 15px;
             text-align: center;
@@ -301,7 +304,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(116, 205, 118, 0.5));
+            background: linear-gradient(45deg, transparent, rgba(116, 205, 118, 0.8));
             transform: rotate(45deg);
             transition: 0.5s;
         }
@@ -313,7 +316,7 @@
 
         /* 响应式设计 */
         @media (max-width: 768px) {
-            .timeline::after { left: 31px; }
+            .timeline::after { left: 0; }
             .timeline-item { 
                 width: 100%; 
                 left: 0; 
@@ -523,6 +526,7 @@
   position: relative;
   z-index: 1;
   background: linear-gradient(90deg, #00ffd5, #00ff88);
+  text-shadow: 0 0 10px white;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -592,3 +596,85 @@
     background: rgba(255, 255, 255, 0.05);
     transition: .5s;
   }
+
+            /* 平板和桌面端布局 */
+            @media (min-width: 768px) {
+                #home.header-content {
+                    flex-direction: row;
+                    justify-content: center;
+                    padding: 40px 30px;
+                }
+    
+                #home>div:first-child {
+                    padding: 0 5% 30px 5%;
+                    max-width: 700px;
+                }
+    
+                #home img {
+                    max-width: 400px;
+                    padding-right: 5%;
+                }
+            }
+    
+            /* 移动端优化 */
+            @media (max-width: 480px) {
+                #mainTitle {
+                    margin-bottom: 15px;
+                }
+    
+                #subTitle {
+                    text-align: left;
+                    line-height: 1.5;
+                }
+    
+                button#go-to-buy {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+    
+                }
+    
+                #home {
+                    flex-direction: column !important;
+                    padding-top: 20% !important;
+                }
+            }
+            /* 移动端适配 */
+            @media (max-width: 768px) {
+                .header-content {
+                    flex-direction: column;
+                    padding: 30px 15px !important;
+                }
+
+                .header-content>div {
+                    min-width: unset !important;
+                    max-width: 100% !important;
+                    padding: 20px 0 !important;
+                }
+
+                #about {
+                    margin-bottom: 1em !important;
+                }
+
+                #subTitle_about {
+                    text-align: left !important;
+                    font-size: 1rem !important;
+                    line-height: 1.6 !important;
+                }
+
+                #abouts img {
+                    max-width: 220px !important;
+                }
+            }
+
+            /* 小屏手机优化 */
+            @media (max-width: 480px) {
+                #about {
+                    font-size: 1.8rem !important;
+                }
+
+                #abouts img {
+                    max-width: 180px !important;
+                }
+            }
