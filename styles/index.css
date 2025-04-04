@@ -37,8 +37,11 @@
             font-style: normal;
         }
         #logoText{
-            font-family: 'MyCustomFont4';
-            font-size:larger
+            font-family: 'MyCustomFont3';
+            font-size:x-large;
+        }
+        .nav-links{
+            font-family: 'MyCustomFont3';
         }
         /* 全局样式 */
         
