@@ -49,6 +49,10 @@ window.onload = async function () {
         e.preventDefault();
         openAdvancedTab('https://snapshot.box/#/s:pogaibsc.eth');
     });
+    document.getElementById('coin_analysis').addEventListener('click', function (e) {
+        e.preventDefault();
+        openAdvancedTab('https://memeai.pogai.top/');
+    });
     // 创建图表
     const ctx = document.getElementById('myChart').getContext('2d');
     new Chart(ctx, config);
@@ -128,9 +132,11 @@ const langData = {
         devText7:"官方1站",
         devText8:"官方2站",
         devText9:"返馈",
-        daoText:"参与治理"
+        daoText:"参与治理",
+        coin_analysis:"币价分析",
     },  
     en: {
+        coin_analysis:"Coin Analysis",
         daoText:"Participate in governance",
         devText1:"Developer",
         devText2:"DEV：POGAI community member @Memes_168",
