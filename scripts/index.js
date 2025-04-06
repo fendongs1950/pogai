@@ -43,7 +43,7 @@ window.onload = async function () {
 
     document.getElementById('devX').addEventListener('click', function (e) {
         e.preventDefault();
-        openAdvancedTab('https://x.com/ShaDaios');
+        openAdvancedTab('https://x.com/ShaDiaos');
     });
     document.getElementById('dao').addEventListener('click', function (e) {
         e.preventDefault();
