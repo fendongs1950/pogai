@@ -263,6 +263,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       ],
       DefaultType: 1, // 默认类型
+      // 模板图片数据
+      // templates: [
+      //   { id: 1, url: '好色/1.jpg', name: '好色' },
+      //   { id: 2, url: '中国功夫/1.jpg', name: '中国功夫' },
+      // ],
+
       // 表情符号数组
       stickers: [
         // 笑脸类
@@ -663,6 +669,81 @@ document.addEventListener('DOMContentLoaded', function () {
           this.canvas.renderAll();
         }, 100);
       },
+
+      // 导出图片
+      // exportImage() {
+      //   // 创建临时Canvas
+      //   const tempCanvas = document.createElement('canvas');
+      //   tempCanvas.width = this.canvas.getWidth();
+      //   tempCanvas.height = this.canvas.getHeight();
+      //   const tempCtx = tempCanvas.getContext('2d');
+      
+      //   // 绘制白色背景（解决透明背景变黑问题）
+      //   tempCtx.fillStyle = '#ffffff';
+      //   tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+      
+      //   // 使用toDataURLWithMultiplier替代clone方案
+      //   const dataURL = this.canvas.toDataURL({
+      //     format: 'png',
+      //     quality: 1,
+      //     multiplier: 2
+      //   });
+      
+      //   // 统一使用Blob方案处理下载（兼容所有现代浏览器）
+      //   this.downloadWithBlob(dataURL, '熊猫人表情包.png');
+      // },
+      
+      // // 通用Blob下载方法（兼容PC/手机）
+      // downloadWithBlob(dataURL, filename) {
+      //   // 1. 转换为Blob
+      //   const blob = this.dataURLtoBlob(dataURL);
+      //   const url = URL.createObjectURL(blob);
+      
+      //   // 2. 创建下载链接
+      //   const link = document.createElement('a');
+      //   link.href = url;
+      //   link.download = filename;
+        
+      //   // 3. 兼容iOS Safari的特殊处理
+      //   if (this.isIOS()) {
+      //     // iOS需要用户主动触发点击
+      //     link.target = '_blank';
+      //     link.click();
+      //     this.showStatusMessage('请在新页面长按保存图片');
+      //   } 
+      //   // 4. 其他平台标准下载
+      //   else {
+      //     document.body.appendChild(link);
+      //     link.click();
+      //     document.body.removeChild(link);
+      //     this.showStatusMessage('下载已开始...');
+      //   }
+      
+      //   // 5. 延迟释放内存
+      //   setTimeout(() => {
+      //     URL.revokeObjectURL(url);
+      //   }, 100);
+      // },
+      
+      // // 增强版DataURL转Blob
+      // dataURLtoBlob(dataURL) {
+      //   try {
+      //     const arr = dataURL.split(',');
+      //     const mime = arr[0].match(/:(.*?);/)[1];
+      //     const bstr = atob(arr[1]);
+      //     const u8arr = new Uint8Array(bstr.length);
+          
+      //     for (let i = 0; i < bstr.length; i++) {
+      //       u8arr[i] = bstr.charCodeAt(i);
+      //     }
+          
+      //     return new Blob([u8arr], { type: mime });
+      //   } catch (e) {
+      //     console.error('Blob转换失败:', e);
+      //     // 备用方案：使用原始DataURL
+      //     return dataURL;
+      //   }
+      //},
       exportImage() {
         // 1. 创建临时离屏Canvas（避免污染主画布）
         const tempCanvas = document.createElement('canvas');
@@ -765,3 +846,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
+// // 辅助函数：DataURL转Blob
+// function dataURLToBlob(dataURL) {
+//   const arr = dataURL.split(',');
+//   const mime = arr[0].match(/:(.*?);/)[1];
+//   const bstr = atob(arr[1]);
+//   let n = bstr.length;
+//   const u8arr = new Uint8Array(n);
+//   while (n--) {
+//     u8arr[n] = bstr.charCodeAt(n);
+//   }
+//   return new Blob([u8arr], { type: mime });
+// }
