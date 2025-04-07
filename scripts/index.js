@@ -23,27 +23,34 @@ window.onload = async function () {
     document.getElementById("devWallet").addEventListener('click', function () {
         copyTextToClipboard("0x5Fda28034F328acB0971Fdab9e960a452B215AB8", "捐赠地址已复制");
     });
-    // 最佳实践：在用户交互事件中调用（避免被浏览器拦截）
     document.getElementById('go-to-buy').addEventListener('click', function (e) {
         e.preventDefault();
         openAdvancedTab('https://pancakeswap.finance/?outputCurrency=0xdfa86A77C9C99C2A1d33e56F42081b40Fc3BDFcC');
     });
-    // document.getElementsByClassName('contactEmail')[0].addEventListener('click', function(e) {
-    //   e.preventDefault();
-    //   openAdvancedTab('https://pancakeswap.finance/?outputCurrency=0xdfa86A77C9C99C2A1d33e56F42081b40Fc3BDFcC');
-    // });
     document.getElementsByClassName('contactTelegram')[0].addEventListener('click', function (e) {
         e.preventDefault();
         openAdvancedTab('https://t.me/pogaictoq');
     });
     document.getElementsByClassName('contactTwitter')[0].addEventListener('click', function (e) {
         e.preventDefault();
-        openAdvancedTab('https://x.com/_pogai_');
+        openAdvancedTab('https://x.com/pogaibinance');
     });
 
     document.getElementById('devX').addEventListener('click', function (e) {
         e.preventDefault();
         openAdvancedTab('https://x.com/ShaDiaos');
+    });
+    document.getElementById('abaoX').addEventListener('click', function (e) {
+        e.preventDefault();
+        openAdvancedTab('https://x.com/pogaibinance');
+    });
+    document.getElementById('totodoX').addEventListener('click', function (e) {
+        e.preventDefault();
+        openAdvancedTab('https://x.com/totodo');
+    });
+    document.getElementById('huoguoX').addEventListener('click', function (e) {
+        e.preventDefault();
+        openAdvancedTab('https://x.com/huoguo2000');
     });
     document.getElementById('dao').addEventListener('click', function (e) {
         e.preventDefault();
@@ -135,7 +142,7 @@ const langData = {
         devText6:"熊猫头合成器",
         devText7:"官方1站",
         devText8:"官方2站",
-        devText9:"返馈",
+        devText9:"贡献者",
         daoText:"参与治理",
         coin_analysis:"合约AI检测",
         POGAI_tool:"POGAI工具",
@@ -152,7 +159,7 @@ const langData = {
         devText6:"Panda Head Generator",
         devText7:"official hub",
         devText8:"official secondary site",
-        devText9:"Refeed",
+        devText9:"contributor",
         ChartText1:"Token Supply",
         ChartText2:"No Taxes, No Bullshit. It’s that simple.",
         ChartText3:"LP tokens are burnt, and contract ownership is renounced.",
