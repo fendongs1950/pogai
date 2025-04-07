@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>POGAI熊猫头表情包合成器</title>
+  <link rel="icon" href="favicon.png" type="image/png">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
@@ -81,8 +82,9 @@
             上传图片
           </h3>
           <div class="section-content" v-show="activeSections.upload">
-            <input type="file" id="image-upload" accept="image/*" @change="handleImageUpload" style="display: none;">
-            <button @click="triggerUpload">
+            <button style="position: relative;" >
+              <input type="file" id="image-upload" accept="image/*" @change="handleImageUpload" style="width: 100%;height: 100%;position: absolute;top:
+              0;left: 0;opacity: 0;cursor: pointer;">
               <i class="fas fa-upload"></i> 选择图片
             </button>
           </div>
