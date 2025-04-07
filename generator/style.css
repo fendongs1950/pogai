@@ -352,9 +352,3 @@ button:hover {
   border-radius: 20px;
   font-size: 16px;
 }
-
-/* 增大画布点击区域 */
-.canvas-container {
-  touch-action: none;
-  min-height: 60vh;
-}

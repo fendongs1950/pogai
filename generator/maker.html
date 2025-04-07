@@ -115,15 +115,7 @@
 
       <!-- 右侧画布区域 -->
       <div class="canvas-container">
-        <canvas id="canvas" width="500" height="500">
-          <!-- 在画布容器内添加 -->
-        <div v-if="isMobile" class="mobile-tools">
-  <button @click="scaleSelected('+')">放大</button>
-  <button @click="scaleSelected('-')">缩小</button>
-  <button @click="rotateSelected(15)">旋转</button>
-  <button @click="deleteSelected">删除</button>
-        </div>
-        </canvas>
+        <canvas id="canvas" width="500" height="500"></canvas>
         <div style="display:flex;justify-content:center;align-items:center;width:100%">
           <button @click="randomLoadTemplate()" class="change-image-btn">
           <i class="fas fa-sync-alt"></i> 切换图片

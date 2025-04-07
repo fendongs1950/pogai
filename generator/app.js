@@ -263,12 +263,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       ],
       DefaultType: 1, // 默认类型
-      // 模板图片数据
-      // templates: [
-      //   { id: 1, url: '好色/1.jpg', name: '好色' },
-      //   { id: 2, url: '中国功夫/1.jpg', name: '中国功夫' },
-      // ],
-
       // 表情符号数组
       stickers: [
         // 笑脸类
@@ -394,67 +388,31 @@ document.addEventListener('DOMContentLoaded', function () {
         // 安全生成 1~count 的随机整数（兼容所有浏览器）
         return Math.floor(Math.random() * category.count) + 1;
       },
-      enterEditMode(target) {//进入编辑模式
-        if (target.type === 'text') {
-          // 文字编辑
-          const text = new fabric.IText(target.text, {
-            left: target.left,
-            top: target.top,
-            fontSize: target.fontSize,
-            fill: target.fill,
-            fontFamily: target.fontFamily,
-            originX: 'center',
-            originY: 'center'
-          });
-          
-          this.canvas.remove(target);
-          this.canvas.add(text);
-          this.canvas.setActiveObject(text);
-          text.enterEditing();
-          
-        } else {
-          // 贴纸放大控制
-          target.set({
-            scaleX: target.scaleX * 1.3,
-            scaleY: target.scaleY * 1.3,
-            hasControls: true,
-            lockScalingFlip: true
-          });
-          this.canvas.renderAll();
-        }
-      },
       // 初始化画布
       initCanvas() {
         this.canvas = new fabric.Canvas('canvas', {
-          // ...原有配置...
-          selection: true,
-          selectionBorderColor: 'rgba(255, 165, 0, 0.3)', // 更醒目的橙色选中框
-          selectionLineWidth: 3
+          preserveObjectStacking: true,
+          backgroundColor: '#f0f0f0',
+          selection: true, // 启用选择
+          selectionColor: 'rgba(100, 100, 255, 0.3)',
+          selectionBorderColor: 'blue',
+          selectionLineWidth: 2
         });
-      
-        // 移动端优化
+
+        // 确保对象可交互
+        this.canvas.on('selection:created', () => {
+          console.log('对象被选中:', this.canvas.getActiveObject());
+        });
+
+        // 移动端支持
         if ('ontouchstart' in window) {
-          // 禁用画布滚动
           this.canvas.allowTouchScrolling = false;
-          
-          // 增大点击热区
-          this.canvas.targetFindTolerance = 15;
-          
-          // 长按触发编辑
-          let longPressTimer;
-          this.canvas.on('touch:down', (e) => {
-            longPressTimer = setTimeout(() => {
-              if (e.target) {
-                this.enterEditMode(e.target);
-              }
-            }, 500); // 500毫秒长按
-          });
-          
-          this.canvas.on('touch:up', () => {
-            clearTimeout(longPressTimer);
+          this.canvas.on('touch:drag', (e) => {
+            if (e.target) e.target.setCoords();
           });
         }
       },
+
       addText() {
         if (!this.textContent) return;
       
@@ -516,30 +474,7 @@ document.addEventListener('DOMContentLoaded', function () {
         this.canvas.setActiveObject(stickerObj);
         this.canvas.renderAll();
       },
-      // 检测移动端
-  isMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
-  },
-  
-  // 缩放选中对象
-  scaleSelected(direction) {
-    const obj = this.canvas.getActiveObject();
-    if (obj) {
-      const factor = direction === '+' ? 1.2 : 0.8;
-      obj.scaleX *= factor;
-      obj.scaleY *= factor;
-      this.canvas.renderAll();
-    }
-  },
-  
-  // 旋转选中对象
-  rotateSelected(degrees) {
-    const obj = this.canvas.getActiveObject();
-    if (obj) {
-      obj.angle += degrees;
-      this.canvas.renderAll();
-    }
-  },
+
       // 调整画布尺寸（响应式）
       resizeCanvas() {
         const container = document.querySelector('.canvas-container');
@@ -830,15 +765,3 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 });
-// // 辅助函数：DataURL转Blob
-// function dataURLToBlob(dataURL) {
-//   const arr = dataURL.split(',');
-//   const mime = arr[0].match(/:(.*?);/)[1];
-//   const bstr = atob(arr[1]);
-//   let n = bstr.length;
-//   const u8arr = new Uint8Array(n);
-//   while (n--) {
-//     u8arr[n] = bstr.charCodeAt(n);
-//   }
-//   return new Blob([u8arr], { type: mime });
-// }
