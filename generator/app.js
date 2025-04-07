@@ -394,31 +394,67 @@ document.addEventListener('DOMContentLoaded', function () {
         // 安全生成 1~count 的随机整数（兼容所有浏览器）
         return Math.floor(Math.random() * category.count) + 1;
       },
+      enterEditMode(target) {//进入编辑模式
+        if (target.type === 'text') {
+          // 文字编辑
+          const text = new fabric.IText(target.text, {
+            left: target.left,
+            top: target.top,
+            fontSize: target.fontSize,
+            fill: target.fill,
+            fontFamily: target.fontFamily,
+            originX: 'center',
+            originY: 'center'
+          });
+          
+          this.canvas.remove(target);
+          this.canvas.add(text);
+          this.canvas.setActiveObject(text);
+          text.enterEditing();
+          
+        } else {
+          // 贴纸放大控制
+          target.set({
+            scaleX: target.scaleX * 1.3,
+            scaleY: target.scaleY * 1.3,
+            hasControls: true,
+            lockScalingFlip: true
+          });
+          this.canvas.renderAll();
+        }
+      },
       // 初始化画布
       initCanvas() {
         this.canvas = new fabric.Canvas('canvas', {
-          preserveObjectStacking: true,
-          backgroundColor: '#f0f0f0',
-          selection: true, // 启用选择
-          selectionColor: 'rgba(100, 100, 255, 0.3)',
-          selectionBorderColor: 'blue',
-          selectionLineWidth: 2
+          // ...原有配置...
+          selection: true,
+          selectionBorderColor: 'rgba(255, 165, 0, 0.3)', // 更醒目的橙色选中框
+          selectionLineWidth: 3
         });
-
-        // 确保对象可交互
-        this.canvas.on('selection:created', () => {
-          console.log('对象被选中:', this.canvas.getActiveObject());
-        });
-
-        // 移动端支持
+      
+        // 移动端优化
         if ('ontouchstart' in window) {
+          // 禁用画布滚动
           this.canvas.allowTouchScrolling = false;
-          this.canvas.on('touch:drag', (e) => {
-            if (e.target) e.target.setCoords();
+          
+          // 增大点击热区
+          this.canvas.targetFindTolerance = 15;
+          
+          // 长按触发编辑
+          let longPressTimer;
+          this.canvas.on('touch:down', (e) => {
+            longPressTimer = setTimeout(() => {
+              if (e.target) {
+                this.enterEditMode(e.target);
+              }
+            }, 500); // 500毫秒长按
+          });
+          
+          this.canvas.on('touch:up', () => {
+            clearTimeout(longPressTimer);
           });
         }
       },
-
       addText() {
         if (!this.textContent) return;
       
@@ -480,7 +516,30 @@ document.addEventListener('DOMContentLoaded', function () {
         this.canvas.setActiveObject(stickerObj);
         this.canvas.renderAll();
       },
-
+      // 检测移动端
+  isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+  },
+  
+  // 缩放选中对象
+  scaleSelected(direction) {
+    const obj = this.canvas.getActiveObject();
+    if (obj) {
+      const factor = direction === '+' ? 1.2 : 0.8;
+      obj.scaleX *= factor;
+      obj.scaleY *= factor;
+      this.canvas.renderAll();
+    }
+  },
+  
+  // 旋转选中对象
+  rotateSelected(degrees) {
+    const obj = this.canvas.getActiveObject();
+    if (obj) {
+      obj.angle += degrees;
+      this.canvas.renderAll();
+    }
+  },
       // 调整画布尺寸（响应式）
       resizeCanvas() {
         const container = document.querySelector('.canvas-container');
@@ -669,81 +728,6 @@ document.addEventListener('DOMContentLoaded', function () {
           this.canvas.renderAll();
         }, 100);
       },
-
-      // 导出图片
-      // exportImage() {
-      //   // 创建临时Canvas
-      //   const tempCanvas = document.createElement('canvas');
-      //   tempCanvas.width = this.canvas.getWidth();
-      //   tempCanvas.height = this.canvas.getHeight();
-      //   const tempCtx = tempCanvas.getContext('2d');
-      
-      //   // 绘制白色背景（解决透明背景变黑问题）
-      //   tempCtx.fillStyle = '#ffffff';
-      //   tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-      
-      //   // 使用toDataURLWithMultiplier替代clone方案
-      //   const dataURL = this.canvas.toDataURL({
-      //     format: 'png',
-      //     quality: 1,
-      //     multiplier: 2
-      //   });
-      
-      //   // 统一使用Blob方案处理下载（兼容所有现代浏览器）
-      //   this.downloadWithBlob(dataURL, '熊猫人表情包.png');
-      // },
-      
-      // // 通用Blob下载方法（兼容PC/手机）
-      // downloadWithBlob(dataURL, filename) {
-      //   // 1. 转换为Blob
-      //   const blob = this.dataURLtoBlob(dataURL);
-      //   const url = URL.createObjectURL(blob);
-      
-      //   // 2. 创建下载链接
-      //   const link = document.createElement('a');
-      //   link.href = url;
-      //   link.download = filename;
-        
-      //   // 3. 兼容iOS Safari的特殊处理
-      //   if (this.isIOS()) {
-      //     // iOS需要用户主动触发点击
-      //     link.target = '_blank';
-      //     link.click();
-      //     this.showStatusMessage('请在新页面长按保存图片');
-      //   } 
-      //   // 4. 其他平台标准下载
-      //   else {
-      //     document.body.appendChild(link);
-      //     link.click();
-      //     document.body.removeChild(link);
-      //     this.showStatusMessage('下载已开始...');
-      //   }
-      
-      //   // 5. 延迟释放内存
-      //   setTimeout(() => {
-      //     URL.revokeObjectURL(url);
-      //   }, 100);
-      // },
-      
-      // // 增强版DataURL转Blob
-      // dataURLtoBlob(dataURL) {
-      //   try {
-      //     const arr = dataURL.split(',');
-      //     const mime = arr[0].match(/:(.*?);/)[1];
-      //     const bstr = atob(arr[1]);
-      //     const u8arr = new Uint8Array(bstr.length);
-          
-      //     for (let i = 0; i < bstr.length; i++) {
-      //       u8arr[i] = bstr.charCodeAt(i);
-      //     }
-          
-      //     return new Blob([u8arr], { type: mime });
-      //   } catch (e) {
-      //     console.error('Blob转换失败:', e);
-      //     // 备用方案：使用原始DataURL
-      //     return dataURL;
-      //   }
-      //},
       exportImage() {
         // 1. 创建临时离屏Canvas（避免污染主画布）
         const tempCanvas = document.createElement('canvas');
