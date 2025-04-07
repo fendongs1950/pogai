@@ -302,7 +302,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // 文本相关属性
       textContent: '', // 文本内容
-      fontSize: 25,    // 字体大小
+      fontSize: 20,    // 字体大小
       textColor: '#ffffff', // 文字颜色
       strokeColor: '#000000', // 描边颜色
 
@@ -554,7 +554,7 @@ document.addEventListener('DOMContentLoaded', function () {
           this.canvas.add(img);
           this.canvas.sendToBack(img);
           // this.applyWatermark();
-
+          this.addText();
           // 调试用：打印尺寸信息
           console.log(`画布: ${canvasWidth}x${canvasHeight} | 图片原始: ${img.width}x${img.height} | 缩放比例: ${finalScale}`);
         });
@@ -672,165 +672,78 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // 导出图片
       // exportImage() {
-      //   // 显示加载状态
-      //   this.showStatusMessage('正在生成图片...');
-        
       //   // 创建临时Canvas
       //   const tempCanvas = document.createElement('canvas');
       //   tempCanvas.width = this.canvas.getWidth();
       //   tempCanvas.height = this.canvas.getHeight();
       //   const tempCtx = tempCanvas.getContext('2d');
       
-      //   // 绘制背景
-      //   tempCtx.fillStyle = this.canvas.backgroundColor || '#ffffff';
+      //   // 绘制白色背景（解决透明背景变黑问题）
+      //   tempCtx.fillStyle = '#ffffff';
       //   tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
       
-      //   // 克隆画布处理
-      //   this.canvas.clone(clone => {
-      //     // 添加水印
-      //     if (this.showWatermark) {
-      //       const watermark = new fabric.Text(this.watermarkText, {
-      //         left: tempCanvas.width - 10,
-      //         top: tempCanvas.height - 10,
-      //         originX: 'right',
-      //         originY: 'bottom',
-      //         fontSize: 15,
-      //         fill: 'rgba(255,255,255,0.7)',
-      //         fontFamily: 'Arial',
-      //         fontWeight: 'bold',
-      //         shadow: 'rgba(0,0,0,0.5) 1px 1px 2px'
-      //       });
-      //       clone.add(watermark);
-      //     }
-      
-      //     // 转换为图片数据
-      //     const dataURL = clone.toDataURL({
-      //       format: 'png',
-      //       quality: 1,
-      //       multiplier: 2
-      //     });
-      
-      //     // 区分平台处理
-      //     if (this.isIOS()) {
-      //       this.handleIOSDownload(dataURL);
-      //     } else if (this.isAndroid()) {
-      //       this.handleAndroidDownload(dataURL);
-      //     } else {
-      //       this.handleDesktopDownload(dataURL);
-      //     }
+      //   // 使用toDataURLWithMultiplier替代clone方案
+      //   const dataURL = this.canvas.toDataURL({
+      //     format: 'png',
+      //     quality: 1,
+      //     multiplier: 2
       //   });
+      
+      //   // 统一使用Blob方案处理下载（兼容所有现代浏览器）
+      //   this.downloadWithBlob(dataURL, '熊猫人表情包.png');
       // },
       
-      // // 平台检测方法
-      // isIOS() {
-      //   return /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-      //          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-      // },
+      // // 通用Blob下载方法（兼容PC/手机）
+      // downloadWithBlob(dataURL, filename) {
+      //   // 1. 转换为Blob
+      //   const blob = this.dataURLtoBlob(dataURL);
+      //   const url = URL.createObjectURL(blob);
       
-      // isAndroid() {
-      //   return /Android/.test(navigator.userAgent);
-      // },
-      
-      // // iOS专用处理
-      // handleIOSDownload(dataURL) {
-      //   // 创建新窗口展示图片
-      //   const win = window.open();
-      //   win.document.write(`
-      //     <!DOCTYPE html>
-      //     <html>
-      //       <head>
-      //         <title>保存图片</title>
-      //         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      //         <style>
-      //           body { 
-      //             margin: 0; 
-      //             padding: 20px; 
-      //             background: #f5f5f5;
-      //             display: flex;
-      //             flex-direction: column;
-      //             align-items: center;
-      //           }
-      //           img { max-width: 100%; height: auto; }
-      //           .tip { 
-      //             margin: 20px 0; 
-      //             padding: 15px;
-      //             background: #fff;
-      //             border-radius: 8px;
-      //             text-align: center;
-      //           }
-      //           button {
-      //             margin-top: 20px;
-      //             padding: 10px 20px;
-      //             background: #4CAF50;
-      //             color: white;
-      //             border: none;
-      //             border-radius: 5px;
-      //             font-size: 16px;
-      //           }
-      //         </style>
-      //       </head>
-      //       <body>
-      //         <img src="${dataURL}">
-      //         <div class="tip">
-      //           <p>请长按图片，选择「保存到相册」</p>
-      //         </div>
-      //         <button onclick="window.close()">关闭</button>
-      //       </body>
-      //     </html>
-      //   `);
-      //   this.showStatusMessage('请在弹出窗口中长按保存图片');
-      // },
-      
-      // // Android专用处理
-      // handleAndroidDownload(dataURL) {
-      //   try {
-      //     // 尝试使用Blob方式下载
-      //     const blob = this.dataURLtoBlob(dataURL);
-      //     const url = URL.createObjectURL(blob);
-          
-      //     const link = document.createElement('a');
-      //     link.href = url;
-      //     link.download = '熊猫人表情包.png';
-      //     link.style.display = 'none';
-          
+      //   // 2. 创建下载链接
+      //   const link = document.createElement('a');
+      //   link.href = url;
+      //   link.download = filename;
+        
+      //   // 3. 兼容iOS Safari的特殊处理
+      //   if (this.isIOS()) {
+      //     // iOS需要用户主动触发点击
+      //     link.target = '_blank';
+      //     link.click();
+      //     this.showStatusMessage('请在新页面长按保存图片');
+      //   } 
+      //   // 4. 其他平台标准下载
+      //   else {
       //     document.body.appendChild(link);
       //     link.click();
-          
-      //     setTimeout(() => {
-      //       document.body.removeChild(link);
-      //       URL.revokeObjectURL(url);
-      //     }, 100);
-          
-      //     this.showStatusMessage('下载已开始，请稍候...');
-      //   } catch (e) {
-      //     // 如果Blob方式失败，转为图片展示
-      //     this.handleIOSDownload(dataURL);
+      //     document.body.removeChild(link);
+      //     this.showStatusMessage('下载已开始...');
       //   }
+      
+      //   // 5. 延迟释放内存
+      //   setTimeout(() => {
+      //     URL.revokeObjectURL(url);
+      //   }, 100);
       // },
       
-      // // 桌面端处理
-      // handleDesktopDownload(dataURL) {
-      //   const link = document.createElement('a');
-      //   link.href = dataURL;
-      //   link.download = '熊猫人表情包.png';
-      //   link.click();
-      //   this.showStatusMessage('图片已下载');
-      // },
-      
-      // // DataURL转Blob
+      // // 增强版DataURL转Blob
       // dataURLtoBlob(dataURL) {
-      //   const arr = dataURL.split(',');
-      //   const mime = arr[0].match(/:(.*?);/)[1];
-      //   const bstr = atob(arr[1]);
-      //   let n = bstr.length;
-      //   const u8arr = new Uint8Array(n);
-        
-      //   while (n--) {
-      //     u8arr[n] = bstr.charCodeAt(n);
+      //   try {
+      //     const arr = dataURL.split(',');
+      //     const mime = arr[0].match(/:(.*?);/)[1];
+      //     const bstr = atob(arr[1]);
+      //     const u8arr = new Uint8Array(bstr.length);
+          
+      //     for (let i = 0; i < bstr.length; i++) {
+      //       u8arr[i] = bstr.charCodeAt(i);
+      //     }
+          
+      //     return new Blob([u8arr], { type: mime });
+      //   } catch (e) {
+      //     console.error('Blob转换失败:', e);
+      //     // 备用方案：使用原始DataURL
+      //     return dataURL;
       //   }
-        
-      //   return new Blob([u8arr], { type: mime });
-      // },
+      //},
       exportImage() {
         // 1. 创建临时离屏Canvas（避免污染主画布）
         const tempCanvas = document.createElement('canvas');
@@ -869,7 +782,7 @@ document.addEventListener('DOMContentLoaded', function () {
           });
 
           // 6. 原生下载实现
-          this.nativeDownload(dataURL, '熊猫人表情包.png');
+          this.nativeDownload(dataURL, 'pogai_on_bsc'+Date.now()+'.png');
         });
       },
 
