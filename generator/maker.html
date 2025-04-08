@@ -63,8 +63,8 @@
             <button @click="addText">
               <i class="fas fa-font"></i> 添加文字
             </button>
-            <button class="delete-btn" @click="deleteSelected">
-              <i class="fas fa-trash"></i> 删除选中项
+            <button @click="randomLoadText">
+              <i class="fas fa-dice"></i> 随机文字
             </button>
           </div>
         </div>
@@ -84,7 +84,7 @@
           </div>
         </div>
         <!-- 上传图片 -->
-        <div class="tool-section">
+        <div class="tool-section" style="display: none;">
           <h3 @click="toggleSection('upload')">
             <i :class="activeSections.upload ? 'fa-chevron-down' : 'fa-chevron-right'" class="fas"></i>
             上传图片
@@ -116,13 +116,12 @@
         </div>
 
         <!-- 导出 -->
-        <div class="tool-section">
+        <div class="tool-section" style="display: none;">
           <button @click="exportImage" class="export-btn">
             <i class="fas fa-download"></i> 导出表情包
           </button>
         </div>
       </div>
-
       <!-- 右侧画布区域 -->
       <div>
           <div class="canvas-container-main">
@@ -151,6 +150,7 @@
           </div>
       </div>
     </div>
+    
     <footer class="app-footer">
       <div class="footer-container">
         <div class="footer-section about" style="font-weight: bold;font-size: 10px;padding:0 20px">

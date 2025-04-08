@@ -364,7 +364,7 @@ document.addEventListener('DOMContentLoaded', function () {
       getRandomIndex(max = 9) {
         return Math.floor(Math.random() * (max + 1));
       },
-      randomLoadText(){
+      randomLoadText() {
         let randomIndex = this.getRandomIndex();
         let randomText = this.memeType[this.DefaultType - 1].text[randomIndex];
         this.textContent = randomText;
@@ -422,16 +422,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
       addText() {
         if (!this.textContent) return;
-      
+
         // 获取图片对象
         const imageObject = this.canvas.getObjects().find(obj => obj.type === 'image');
-        
+
         // 计算文字位置（图片下方）
         let textTop = this.canvas.getHeight() / 2; // 默认居中
         if (imageObject) {
           textTop = imageObject.top + imageObject.height / 2 + 20; // 图片底部 + 20px间距
         }
-      
+
         const text = new fabric.Text(this.textContent, {
           left: this.canvas.getWidth() / 2,  // 水平居中
           top: textTop,                      // 图片下方位置
@@ -453,7 +453,7 @@ document.addEventListener('DOMContentLoaded', function () {
           lockScalingX: false,
           lockScalingY: false
         });
-      
+
         this.canvas.add(text);
         this.canvas.setActiveObject(text);
         this.canvas.renderAll();
@@ -514,7 +514,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         this.canvas.renderAll(); // 重新渲染画布
       },
-      
+
       // 加载模板图片
       loadTemplate(template) {
         this.canvas.clear(); // 清空画布
@@ -609,36 +609,36 @@ document.addEventListener('DOMContentLoaded', function () {
         reader.readAsDataURL(file);
       },
       // 增强版：结合用户代理和屏幕尺寸（推荐）
- /**
- * 根据屏幕宽度判断设备类型
- * @returns {string} 设备类型标识
- * - 'mobile' - 手机 (宽度 < 768px)
- * - 'tablet' - 平板 (768px ≤ 宽度 < 992px) 
- * - 'desktop' - 电脑 (宽度 ≥ 992px)
- * - 'unknown' - 未知设备
- */
-  loadingCanvas() {
-  const screenWidth = 
-        document.documentElement.clientWidth || 
-        document.body.clientWidth || window.innerWidth;
+      /**
+      * 根据屏幕宽度判断设备类型
+      * @returns {string} 设备类型标识
+      * - 'mobile' - 手机 (宽度 < 768px)
+      * - 'tablet' - 平板 (768px ≤ 宽度 < 992px) 
+      * - 'desktop' - 电脑 (宽度 ≥ 992px)
+      * - 'unknown' - 未知设备
+      */
+      loadingCanvas() {
+        const screenWidth =
+          document.documentElement.clientWidth ||
+          document.body.clientWidth || window.innerWidth;
 
-  // 标准响应式断点 (参考Bootstrap)
-  if (screenWidth < 768) {
-    let mobile = document.getElementsByClassName("upper-canvas ")[0];
-    mobile.style.width = "100%";
-    mobile.style.height = screenWidth+ "px";
-    document.getElementById("app-desc").style.display = "none";
-    document.getElementById("user-actions").style.display = "none";
-    document.getElementById("logo").style.display = "none";
-    let container = document.getElementsByClassName("canvas-container")[0];
-    container.style.width = "100%";
-    container.style.height = screenWidth+ "px";
-  } else {
-    let desktop = document.getElementsByClassName("upper-canvas ")[0];
-    desktop.style.width = "500px";
-    desktop.style.height = "500px";
-  }
-},
+        // 标准响应式断点 (参考Bootstrap)
+        if (screenWidth < 768) {
+          let mobile = document.getElementsByClassName("upper-canvas ")[0];
+          mobile.style.width = "100%";
+          mobile.style.height = screenWidth + "px";
+          document.getElementById("app-desc").style.display = "none";
+          document.getElementById("user-actions").style.display = "none";
+          document.getElementById("logo").style.display = "none";
+          let container = document.getElementsByClassName("canvas-container")[0];
+          container.style.width = "100%";
+          container.style.height = screenWidth + "px";
+        } else {
+          let desktop = document.getElementsByClassName("upper-canvas ")[0];
+          desktop.style.width = "500px";
+          desktop.style.height = "500px";
+        }
+      },
       // 删除选中的对象
       deleteSelected() {
         const activeObject = this.canvas.getActiveObject();
@@ -738,7 +738,7 @@ document.addEventListener('DOMContentLoaded', function () {
           });
 
           // 6. 原生下载实现
-          this.nativeDownload(dataURL, 'pogai_on_bsc'+Date.now()+'.png');
+          this.nativeDownload(dataURL, 'pogai_on_bsc' + Date.now() + '.png');
         });
       },
       // exportImage() {
@@ -760,17 +760,17 @@ document.addEventListener('DOMContentLoaded', function () {
       //       clone.add(watermark);
       //       clone.renderAll();
       //     }
-      
+
       //     // 3. 直接从克隆画布导出
       //     const dataURL = clone.toDataURL({
       //       format: 'png',
       //       quality: 1,
       //       multiplier: 2 // 高清导出
       //     });
-      
+
       //     // 4. 触发下载
       //     this.nativeDownload(dataURL, 'pogai_on_bsc_'+Date.now()+'.png');
-          
+
       //     // 5. 销毁克隆画布释放内存
       //     clone.dispose();
       //   });
@@ -821,7 +821,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // 处理键盘事件
       handleKeyDown(e) {
         // 按Delete或Backspace键删除选中对象
-        if (e.key === 'Delete' ) { //|| e.key === 'Backspace'
+        if (e.key === 'Delete') { //|| e.key === 'Backspace'
           this.deleteSelected();
         }
       }
