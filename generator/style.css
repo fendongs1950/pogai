@@ -38,7 +38,7 @@ h1 {
   padding: 15px;
   border-radius: 8px;
   overflow-y: auto;
-  max-height: 80vh;
+  max-height: 100vh;
 }
 
 .tool-section {
@@ -152,7 +152,7 @@ button:hover {
 }
 
 .export-btn {
-  background: #4caf50;
+  background: #4a6fa5;
 }
 
 .canvas-tip {
@@ -178,6 +178,14 @@ button:hover {
   }
   body {
     padding: 0 !important;
+  }
+  #main-canvas-container{
+    position: sticky;
+    top: 0;
+    /* 其他样式 */
+    width: 100%;
+    background: white;
+    z-index: 100;
   }
 }
 .canvas-container {

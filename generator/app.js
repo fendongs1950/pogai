@@ -637,6 +637,9 @@ document.addEventListener('DOMContentLoaded', function () {
           let desktop = document.getElementsByClassName("upper-canvas ")[0];
           desktop.style.width = "500px";
           desktop.style.height = "500px";
+          let mainCanvas = document.getElementById("main-canvas-container");
+          let toolbar = document.getElementById("toolbar");
+          toolbar.style.height = mainCanvas.style.height;//两边高度同步
         }
       },
       // 删除选中的对象
