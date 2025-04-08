@@ -332,6 +332,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 组件挂载完成后执行
     mounted() {
       this.initCanvas(); // 初始化画布
+      // this.loadingCanvas(); // 加载同步画布
       let randomNumber = this.getMemeRandomNumber(this.DefaultType);
       let data = {
         id: this.DefaultType,
@@ -513,7 +514,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         this.canvas.renderAll(); // 重新渲染画布
       },
-
+      
       // 加载模板图片
       loadTemplate(template) {
         this.canvas.clear(); // 清空画布
@@ -607,7 +608,37 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         reader.readAsDataURL(file);
       },
+      // 增强版：结合用户代理和屏幕尺寸（推荐）
+ /**
+ * 根据屏幕宽度判断设备类型
+ * @returns {string} 设备类型标识
+ * - 'mobile' - 手机 (宽度 < 768px)
+ * - 'tablet' - 平板 (768px ≤ 宽度 < 992px) 
+ * - 'desktop' - 电脑 (宽度 ≥ 992px)
+ * - 'unknown' - 未知设备
+ */
+  loadingCanvas() {
+  const screenWidth = 
+        document.documentElement.clientWidth || 
+        document.body.clientWidth || window.innerWidth;
 
+  // 标准响应式断点 (参考Bootstrap)
+  if (screenWidth < 768) {
+    let mobile = document.getElementsByClassName("upper-canvas ")[0];
+    mobile.style.width = "100%";
+    mobile.style.height = screenWidth+ "px";
+    document.getElementById("app-desc").style.display = "none";
+    document.getElementById("user-actions").style.display = "none";
+    document.getElementById("logo").style.display = "none";
+    let container = document.getElementsByClassName("canvas-container")[0];
+    container.style.width = "100%";
+    container.style.height = screenWidth+ "px";
+  } else {
+    let desktop = document.getElementsByClassName("upper-canvas ")[0];
+    desktop.style.width = "500px";
+    desktop.style.height = "500px";
+  }
+},
       // 删除选中的对象
       deleteSelected() {
         const activeObject = this.canvas.getActiveObject();
@@ -669,81 +700,6 @@ document.addEventListener('DOMContentLoaded', function () {
           this.canvas.renderAll();
         }, 100);
       },
-
-      // 导出图片
-      // exportImage() {
-      //   // 创建临时Canvas
-      //   const tempCanvas = document.createElement('canvas');
-      //   tempCanvas.width = this.canvas.getWidth();
-      //   tempCanvas.height = this.canvas.getHeight();
-      //   const tempCtx = tempCanvas.getContext('2d');
-      
-      //   // 绘制白色背景（解决透明背景变黑问题）
-      //   tempCtx.fillStyle = '#ffffff';
-      //   tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-      
-      //   // 使用toDataURLWithMultiplier替代clone方案
-      //   const dataURL = this.canvas.toDataURL({
-      //     format: 'png',
-      //     quality: 1,
-      //     multiplier: 2
-      //   });
-      
-      //   // 统一使用Blob方案处理下载（兼容所有现代浏览器）
-      //   this.downloadWithBlob(dataURL, '熊猫人表情包.png');
-      // },
-      
-      // // 通用Blob下载方法（兼容PC/手机）
-      // downloadWithBlob(dataURL, filename) {
-      //   // 1. 转换为Blob
-      //   const blob = this.dataURLtoBlob(dataURL);
-      //   const url = URL.createObjectURL(blob);
-      
-      //   // 2. 创建下载链接
-      //   const link = document.createElement('a');
-      //   link.href = url;
-      //   link.download = filename;
-        
-      //   // 3. 兼容iOS Safari的特殊处理
-      //   if (this.isIOS()) {
-      //     // iOS需要用户主动触发点击
-      //     link.target = '_blank';
-      //     link.click();
-      //     this.showStatusMessage('请在新页面长按保存图片');
-      //   } 
-      //   // 4. 其他平台标准下载
-      //   else {
-      //     document.body.appendChild(link);
-      //     link.click();
-      //     document.body.removeChild(link);
-      //     this.showStatusMessage('下载已开始...');
-      //   }
-      
-      //   // 5. 延迟释放内存
-      //   setTimeout(() => {
-      //     URL.revokeObjectURL(url);
-      //   }, 100);
-      // },
-      
-      // // 增强版DataURL转Blob
-      // dataURLtoBlob(dataURL) {
-      //   try {
-      //     const arr = dataURL.split(',');
-      //     const mime = arr[0].match(/:(.*?);/)[1];
-      //     const bstr = atob(arr[1]);
-      //     const u8arr = new Uint8Array(bstr.length);
-          
-      //     for (let i = 0; i < bstr.length; i++) {
-      //       u8arr[i] = bstr.charCodeAt(i);
-      //     }
-          
-      //     return new Blob([u8arr], { type: mime });
-      //   } catch (e) {
-      //     console.error('Blob转换失败:', e);
-      //     // 备用方案：使用原始DataURL
-      //     return dataURL;
-      //   }
-      //},
       exportImage() {
         // 1. 创建临时离屏Canvas（避免污染主画布）
         const tempCanvas = document.createElement('canvas');
@@ -785,7 +741,40 @@ document.addEventListener('DOMContentLoaded', function () {
           this.nativeDownload(dataURL, 'pogai_on_bsc'+Date.now()+'.png');
         });
       },
-
+      // exportImage() {
+      //   // 1. 克隆主画布（保留原始画布不受影响）
+      //   this.canvas.clone(clone => {
+      //     // 2. 添加水印到克隆画布（如果需要）
+      //     if (this.showWatermark) {
+      //       const watermark = new fabric.Text(this.watermarkText, {
+      //         left: clone.getWidth() - 10,
+      //         top: clone.getHeight() - 10,
+      //         originX: 'right',
+      //         originY: 'bottom',
+      //         fontSize: 15,
+      //         fill: '#ffffff',
+      //         fontFamily: 'Arial',
+      //         fontWeight: 'bold',
+      //         shadow: 'rgba(0,0,0,0.5) 1px 1px 2px'
+      //       });
+      //       clone.add(watermark);
+      //       clone.renderAll();
+      //     }
+      
+      //     // 3. 直接从克隆画布导出
+      //     const dataURL = clone.toDataURL({
+      //       format: 'png',
+      //       quality: 1,
+      //       multiplier: 2 // 高清导出
+      //     });
+      
+      //     // 4. 触发下载
+      //     this.nativeDownload(dataURL, 'pogai_on_bsc_'+Date.now()+'.png');
+          
+      //     // 5. 销毁克隆画布释放内存
+      //     clone.dispose();
+      //   });
+      // },
       // 原生下载方法（兼容所有浏览器）
       nativeDownload(dataURL, filename) {
         // 方法1：优先使用Blob（更可靠）
@@ -845,16 +834,7 @@ document.addEventListener('DOMContentLoaded', function () {
       window.removeEventListener('keydown', this.handleKeyDown);
     }
   });
+  setTimeout(() => {
+    vueData.loadingCanvas(); // 加载同步画布
+  }, 3000);
 });
-// // 辅助函数：DataURL转Blob
-// function dataURLToBlob(dataURL) {
-//   const arr = dataURL.split(',');
-//   const mime = arr[0].match(/:(.*?);/)[1];
-//   const bstr = atob(arr[1]);
-//   let n = bstr.length;
-//   const u8arr = new Uint8Array(n);
-//   while (n--) {
-//     u8arr[n] = bstr.charCodeAt(n);
-//   }
-//   return new Blob([u8arr], { type: mime });
-// }
