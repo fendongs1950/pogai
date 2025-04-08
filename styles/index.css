@@ -1,589 +1,674 @@
+/*自定义字体*/
+@font-face {
+    font-family: 'MyCustomFont';
+    src: url('../assets/fonts/file.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
-        /*自定义字体*/
-        @font-face {
-            font-family: 'MyCustomFont';
-            src: url('../assets/fonts/file.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'MyCustomFont1';
-            src: url('../assets/fonts/file1.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'MyCustomFont2';
-            src: url('../assets/fonts/file2.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'MyCustomFont3';
-            src: url('../assets/fonts/file3.ttf');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'MyCustomFont4';
-            src: url('../assets/fonts/file4.otf');
-            font-weight: normal;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'MyCustomFont5';
-            src: url('../assets/fonts/file5.ttf');
-            font-weight: normal;
-            font-style: normal;
-        }
-        #logoText{
-            font-family: 'MyCustomFont3';
-            font-size:x-large;
-        }
-        .nav-links{
-            font-family: 'MyCustomFont3';
-        }
-        /* 全局样式 */
-        
-        :root {
-            --primary-color: #88f28b;
-            --secondary-color: #FF6B6B;
-            --accent-color: #F9CA24;
-        }
+@font-face {
+    font-family: 'MyCustomFont1';
+    src: url('../assets/fonts/file1.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
-        body {
-            font-family: 'Comic Neue', cursive;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: #fff;
-            margin: 0;
-            line-height: 1.6;
-            overflow-x: hidden;
-            
-        }
+@font-face {
+    font-family: 'MyCustomFont2';
+    src: url('../assets/fonts/file2.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
-        /* 动态背景装饰 */
-        .deco-bubble {
-            position: fixed;
-            background: rgba(76, 175, 80, 0.1);
-            border-radius: 50%;
-            animation: float 15s infinite;
-            z-index: -1;
-            will-change: transform; /* 性能优化 */
-        }
+@font-face {
+    font-family: 'MyCustomFont3';
+    src: url('../assets/fonts/file3.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
+@font-face {
+    font-family: 'MyCustomFont4';
+    src: url('../assets/fonts/file4.otf');
+    font-weight: normal;
+    font-style: normal;
+}
 
-        /* 语言切换 */
-        .lang-switch {
-            position: fixed;
-            top: 20px;
-            right: 30px;
-            z-index: 1000;
-        }
+@font-face {
+    font-family: 'MyCustomFont5';
+    src: url('../assets/fonts/file5.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
 
-        .lang-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid var(--primary-color);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-            backdrop-filter: blur(5px);
-        }
+#logoText {
+    font-family: 'MyCustomFont3';
+    font-size: x-large;
+}
 
-        .lang-btn:hover {
-            background: var(--primary-color);
-            transform: scale(1.1);
-        }
+.nav-links {
+    font-family: 'MyCustomFont3';
+}
 
-        /* 标题动画 */
-        header {
-            padding: 100px 20px 60px;
-            background: linear-gradient(45deg, #0a0a0a 0%, #0a1922 100%);
-            /* clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); */
-            position: relative;
-            overflow: hidden;
-            /* color: rgb(24, 50, 5);
+/* 全局样式 */
+
+:root {
+    --primary-color: #88f28b;
+    --secondary-color: #FF6B6B;
+    --accent-color: #F9CA24;
+}
+
+body {
+    font-family: 'Comic Neue', cursive;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: #fff;
+    margin: 0;
+    line-height: 1.6;
+    overflow-x: hidden;
+
+}
+
+/* 动态背景装饰 */
+.deco-bubble {
+    position: fixed;
+    background: rgba(76, 175, 80, 0.1);
+    border-radius: 50%;
+    animation: float 15s infinite;
+    z-index: -1;
+    will-change: transform;
+    /* 性能优化 */
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(180deg);
+    }
+}
+
+/* 语言切换 */
+.lang-switch {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    z-index: 1000;
+}
+
+.lang-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--primary-color);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    backdrop-filter: blur(5px);
+}
+
+.lang-btn:hover {
+    background: var(--primary-color);
+    transform: scale(1.1);
+}
+
+/* 标题动画 */
+header {
+    padding: 100px 20px 60px;
+    background: linear-gradient(45deg, #0a0a0a 0%, #0a1922 100%);
+    /* clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%); */
+    position: relative;
+    overflow: hidden;
+    /* color: rgb(24, 50, 5);
             font-weight: bolder;
             background-image: url("/public/image/Home-head.png");
             background-size: cover;
             background-position: center;
             background-position: center top -70px;
             background-repeat: no-repeat; */
-        }
+}
 
-        .header-content {
-            /* max-width: 800px; */
-            margin: 20px auto;
-            position: relative;
-            
-        }
+.header-content {
+    /* max-width: 800px; */
+    margin: 20px auto;
+    position: relative;
 
-        h1 {
-            font-size: 3.5em;
-            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
-            animation: titleGlow 2s ease-in-out infinite alternate;
-        }
+}
 
-        @keyframes titleGlow {
-            from { text-shadow: 0 0 10px var(--primary-color); }
-            to { text-shadow: 0 0 20px var(--secondary-color); }
-        }
+h1 {
+    font-size: 3.5em;
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
 
-        /* 时间轴样式 */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 40px 0;
-        }
+@keyframes titleGlow {
+    from {
+        text-shadow: 0 0 10px var(--primary-color);
+    }
 
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background: var(--primary-color);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-            box-shadow: 0 0 15px var(--primary-color);
-        }
+    to {
+        text-shadow: 0 0 20px var(--secondary-color);
+    }
+}
 
-        .timeline-item {
-            padding: 20px;
-            position: relative;
-            width: 50%;
-            animation: slideIn 0.6s ease-out;
-        }
+/* 时间轴样式 */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 40px 0;
+}
 
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background: var(--primary-color);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+    box-shadow: 0 0 15px var(--primary-color);
+}
 
-        @keyframes mobileSlideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+.timeline-item {
+    padding: 20px;
+    position: relative;
+    width: 50%;
+    animation: slideIn 0.6s ease-out;
+}
 
-        .timeline-item:nth-child(odd) {
-            left: 0;
-            text-align: right;
-        }
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
 
-        .timeline-item:nth-child(even) {
-            left: 50%;
-        }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
 
-        .timeline-content {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            position: relative;
-            transition: transform 0.3s;
-            border: 1px solid rgba(76, 175, 80, 0.3);
-        }
+@keyframes mobileSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
 
-        .timeline-content:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        /* 卡片翻转效果 */
-        .flip-card {
-            perspective: 1000px;
-            width: 300px;
-            height: 400px;
-            margin: 20px 20px;
-            float: left;
-        }
-        #pogaiMemeCard {
-            display: flex;
-        }
-        /* 平板和桌面端布局 */
-        @media (min-width: 768px) {
-            #pogaiMemeCard {
-                flex-direction: row;
-                justify-content: center;
-                padding: 40px 30px;
-                
-            }
-            #hot-video{
-                width: 60%!important;
-                margin-left: 20%!important;
-            }
-        }
+.timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: right;
+}
 
-        /* 移动端优化 */
-        @media (max-width: 480px) {
-            #pogaiMemeCard {
-                flex-direction: column !important;
-                padding-top: 20% !important;
-            }
-            #hot-video{
-                width: 100%!important;
-                margin: 0!important;
-            }
-            html{
-                overflow-x: hidden;
-            }
-            .timeline,.timeline-item:nth-child(2n+1){
-                text-align: center !important;
-            }
-        }
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            will-change: transform; /* 性能优化 */
-        }
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
 
-        .flip-card:hover .flip-card-inner {
-            transform: rotateY(180deg);
-        }
+.timeline-content {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    transition: transform 0.3s;
+    border: 1px solid rgba(76, 175, 80, 0.3);
+}
 
-        .flip-card-front, .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 15px;
-            overflow: hidden;
-        }
+.timeline-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
 
-        .flip-card-front {
-            background: #2c3e50;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+/* 卡片翻转效果 */
+.flip-card {
+    perspective: 1000px;
+    width: 300px;
+    height: 400px;
+    margin: 20px 20px;
+    float: left;
+}
 
-        .flip-card-back {
-            background: black;
-            transform: rotateY(180deg);
-            padding: 20px;
-            color: #fff;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 15px;
-            font-family: "MyCustomFont3";
-        }
+#pogaiMemeCard {
+    display: flex;
+}
 
-        /* 联系方式特效 */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            max-width: 800px;
-            margin: 40px auto;
-        }
+/* 平板和桌面端布局 */
+@media (min-width: 768px) {
+    #pogaiMemeCard {
+        flex-direction: row;
+        justify-content: center;
+        padding: 40px 30px;
 
-        .contact-card {
-            background: rgba(255, 255, 255, 0.5);
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            color: #fff;
-            cursor: pointer;
-        }
+    }
 
-        .contact-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(116, 205, 118, 0.8));
-            transform: rotate(45deg);
-            transition: 0.5s;
-        }
+    #hot-video {
+        width: 60% !important;
+        margin-left: 20% !important;
+    }
+}
 
-        .contact-card:hover::before {
-            top: 0;
-            left: 0;
-        }
+/* 移动端优化 */
+@media (max-width: 480px) {
+    #pogaiMemeCard {
+        flex-direction: column !important;
+        padding-top: 20% !important;
+    }
 
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .timeline::after { left: 0; }
-            .timeline-item { 
-                width: 100%; 
-                left: 0; 
-                animation: mobileSlideIn 0.6s ease-out;
-            }
-            .timeline-item:nth-child(even) { left: 0; }
-            .flip-card { 
-                float: none; 
-                margin: 20px auto; 
-                width: 80%; 
-            }
-            .contact-grid { grid-template-columns: 1fr; }
-            h1 { font-size: 2.5em; }
-        }
-        /* 基础重置 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    #hot-video {
+        width: 100% !important;
+        margin: 0 !important;
+    }
 
-        body {
-            font-family: Arial, sans-serif;
-        }
+    html {
+        overflow-x: hidden;
+    }
 
-        /* 导航容器 */
-        .nav-container {
-            background: #000;
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100vw;
-            z-index: 1000;
-            top: 0;
-        }
+    .timeline,
+    .timeline-item:nth-child(2n+1) {
+        text-align: center !important;
+    }
+}
 
-        /* 主导航栏 */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    will-change: transform;
+    /* 性能优化 */
+}
 
-        /* Logo样式 */
-        .logo {
-            width: 120px;
-        }
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
 
-        /* 桌面导航菜单 */
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    overflow: hidden;
+}
 
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
+.flip-card-front {
+    background: #2c3e50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .nav-links a:hover {
-            color: #ffd700; /* 金色高亮 */
-        }
+.flip-card-back {
+    background: black;
+    transform: rotateY(180deg);
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    font-family: "MyCustomFont3";
+}
 
-        /* 移动端汉堡菜单按钮 */
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 10px;
-        }
+/* 联系方式特效 */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 800px;
+    margin: 40px auto;
+}
 
-        .hamburger .bar {
-            display: block;
-            width: 25px;
-            height: 3px;
-            margin: 5px 0;
-            background: #fff;
-            transition: all 0.3s;
-        }
+.contact-card {
+    background: rgba(255, 255, 255, 0.5);
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    cursor: pointer;
+}
 
-        /* 移动端菜单激活状态 */
-        .hamburger.active .bar:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-        }
+.contact-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(116, 205, 118, 0.8));
+    transform: rotate(45deg);
+    transition: 0.5s;
+}
 
-        .hamburger.active .bar:nth-child(2) {
-            opacity: 0;
-        }
+.contact-card:hover::before {
+    top: 0;
+    left: 0;
+}
 
-        .hamburger.active .bar:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .timeline::after {
+        left: 0;
+    }
 
-        /* 移动端菜单样式 */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: block;
-                z-index: 100;
-            }
+    .timeline-item {
+        width: 100%;
+        left: 0;
+        animation: mobileSlideIn 0.6s ease-out;
+    }
 
-            .nav-links {
-                position: fixed;
-                right: -100%;
-                top: 70px;
-                gap: 0;
-                flex-direction: column;
-                background: #000;
-                width: 100%;
-                text-align: center;
-                transition: 0.3s;
-                /* padding: 1rem 0; */
-            }
+    .timeline-item:nth-child(even) {
+        left: 0;
+    }
 
-            .nav-links.active {
-                right: 0;
-                z-index: 100;
-                bottom: 122px;
-            }
+    .flip-card {
+        float: none;
+        margin: 20px auto;
+        width: 80%;
+    }
 
-            .nav-links li {
-                margin: 1rem 0;
-            }
-        }
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 2.5em;
+    }
+}
+
+/* 基础重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* 导航容器 */
+.nav-container {
+    background: #000;
+    padding: 1rem 2rem;
+    position: fixed;
+    width: 100vw;
+    z-index: 1000;
+    top: 0;
+}
+
+/* 主导航栏 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Logo样式 */
+.logo {
+    width: 120px;
+}
+
+/* 桌面导航菜单 */
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #ffd700;
+    /* 金色高亮 */
+}
+
+/* 移动端汉堡菜单按钮 */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 10px;
+}
+
+.hamburger .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px 0;
+    background: #fff;
+    transition: all 0.3s;
+}
+
+/* 移动端菜单激活状态 */
+.hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* 移动端菜单样式 */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+        z-index: 100;
+    }
+
+    .nav-links {
+        position: fixed;
+        right: -100%;
+        top: 70px;
+        gap: 0;
+        flex-direction: column;
+        background: #000;
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        /* padding: 1rem 0; */
+    }
+
+    .nav-links.active {
+        right: 0;
+        z-index: 100;
+        bottom: 122px;
+    }
+
+    .nav-links li {
+        margin: 1rem 0;
+    }
+}
+
 #go-to-buy {
-  /* 基础样式 */
-  padding: 18px 40px;
-  margin-top: 20px;
-  font-size: 20px;
-  font-weight: 600;
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-  
-  /* 深色渐变背景 */
-  background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
-  
-  /* 3D立体效果 */
-  box-shadow:
-    0 4px 20px rgba(0,0,0,0.3),
-    inset 0 2px 4px rgba(255,255,255,0.1);
+    /* 基础样式 */
+    padding: 18px 40px;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+
+    /* 深色渐变背景 */
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+
+    /* 3D立体效果 */
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        inset 0 2px 4px rgba(255, 255, 255, 0.1);
 }
 
 /* 流动光效 */
 #go-to-buy::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  
-  background: linear-gradient(
-    45deg,
-    transparent 25%,
-    rgba(255,255,255,0.1) 50%,
-    transparent 75%
-  );
-  animation: lightFlow 4s infinite linear;
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+
+    background: linear-gradient(45deg,
+            transparent 25%,
+            rgba(255, 255, 255, 0.1) 50%,
+            transparent 75%);
+    animation: lightFlow 4s infinite linear;
 }
 
 /* 点击涟漪效果 */
 #go-to-buy::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  background: rgba(255,255,255,0.2);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s, height 0.3s;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
 }
 
 @keyframes lightFlow {
-  0% { transform: rotate(0deg) translate(-25%, -25%); }
-  100% { transform: rotate(360deg) translate(-25%, -25%); }
+    0% {
+        transform: rotate(0deg) translate(-25%, -25%);
+    }
+
+    100% {
+        transform: rotate(360deg) translate(-25%, -25%);
+    }
 }
 
 /* 悬停效果 */
 #go-to-buy:hover {
-  transform: scale(1.05);
-  box-shadow:
-    0 6px 25px rgba(0,0,0,0.4),
-    inset 0 3px 6px rgba(255,255,255,0.15);
+    transform: scale(1.05);
+    box-shadow:
+        0 6px 25px rgba(0, 0, 0, 0.4),
+        inset 0 3px 6px rgba(255, 255, 255, 0.15);
 }
 
 /* 点击效果 */
 #go-to-buy:active::after {
-  width: 200px;
-  height: 200px;
+    width: 200px;
+    height: 200px;
 }
 
 /* 文字渐变 */
 #go-to-buy span {
-  position: relative;
-  z-index: 1;
-  background: linear-gradient(90deg, #fcfcfc, #00ff88);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(90deg, #fcfcfc, #00ff88);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* CSS 容器样式 */
 #chart-container {
-    width: 80vw; 
+    width: 80vw;
     max-width: 600px;
     margin: 20px auto;
     position: relative;
     transition: transform 0.3s;
-  }
-  
-  #chart-container:hover {
-    transform: scale(1.02); 
-  }
-  .flip-card-front img {
-    width: 100%;        /* 宽度撑满父容器 */
-    height: 100%;       /* 高度撑满父容器 */
-    object-fit: cover;  
-    object-position: center; /* 控制裁剪位置（可选） */
-  }
-  .card1{
+}
+
+#chart-container:hover {
+    transform: scale(1.02);
+}
+
+.flip-card-front img {
+    width: 100%;
+    /* 宽度撑满父容器 */
+    height: 100%;
+    /* 高度撑满父容器 */
+    object-fit: cover;
+    object-position: center;
+    /* 控制裁剪位置（可选） */
+}
+
+.card1 {
     background-image: url("../images/cards1.jpg");
     /* 3. 关键属性：背景填充 */
-    background-size: cover;     /* 保持比例 + 完全覆盖容器（可能裁剪） */
-    background-position: center; /* 图片居中显示 */
-    background-repeat: no-repeat; /* 禁止重复平铺 */
-  }
-  .card2{
+    background-size: cover;
+    /* 保持比例 + 完全覆盖容器（可能裁剪） */
+    background-position: center;
+    /* 图片居中显示 */
+    background-repeat: no-repeat;
+    /* 禁止重复平铺 */
+}
+
+.card2 {
     background-image: url("../images/cards2.jpg");
     /* 3. 关键属性：背景填充 */
-    background-size: cover;     /* 保持比例 + 完全覆盖容器（可能裁剪） */
-    background-position: center; /* 图片居中显示 */
-    background-repeat: no-repeat; /* 禁止重复平铺 */
-  }
-  .card3{
+    background-size: cover;
+    /* 保持比例 + 完全覆盖容器（可能裁剪） */
+    background-position: center;
+    /* 图片居中显示 */
+    background-repeat: no-repeat;
+    /* 禁止重复平铺 */
+}
+
+.card3 {
     background-image: url("../images/cards3.jpg");
     /* 3. 关键属性：背景填充 */
-    background-size: cover;     /* 保持比例 + 完全覆盖容器（可能裁剪） */
-    background-position: center; /* 图片居中显示 */
-    background-repeat: no-repeat; /* 禁止重复平铺 */
-  }
-  .card4{
+    background-size: cover;
+    /* 保持比例 + 完全覆盖容器（可能裁剪） */
+    background-position: center;
+    /* 图片居中显示 */
+    background-repeat: no-repeat;
+    /* 禁止重复平铺 */
+}
+
+.card4 {
     background-image: url("../images/cards4.jpg");
     /* 3. 关键属性：背景填充 */
-    background-size: cover;     /* 保持比例 + 完全覆盖容器（可能裁剪） */
-    background-position: center; /* 图片居中显示 */
-    background-repeat: no-repeat; /* 禁止重复平铺 */
-  }
-  #Chart{
+    background-size: cover;
+    /* 保持比例 + 完全覆盖容器（可能裁剪） */
+    background-position: center;
+    /* 图片居中显示 */
+    background-repeat: no-repeat;
+    /* 禁止重复平铺 */
+}
+
+#Chart {
     display: flex;
-    
-  }
-  #dao{
+
+}
+
+#dao {
     margin-top: 15px;
     padding: 12px 25px;
     font-size: clamp(1rem, 4vw, 1.2rem);
@@ -592,91 +677,143 @@
     color: white;
     cursor: pointer;
     border: none;
-    box-shadow: 0 0 2px white,0 0 3px black;
-  }
-  #dao:hover{
+    box-shadow: 0 0 2px white, 0 0 3px black;
+}
+
+#dao:hover {
     background: rgba(255, 255, 255, 0.05);
     transition: .5s;
-  }
+}
 
-            /* 平板和桌面端布局 */
-            @media (min-width: 768px) {
-                #home.header-content {
-                    flex-direction: row;
-                    justify-content: center;
-                    padding: 40px 30px;
-                }
-    
-                #home>div:first-child {
-                    padding: 0 5% 30px 5%;
-                    max-width: 700px;
-                }
-    
-                #home img {
-                    max-width: 400px;
-                    padding-right: 5%;
-                }
-            }
-    
-            /* 移动端优化 */
-            @media (max-width: 480px) {
-                #mainTitle {
-                    margin-bottom: 15px;
-                }
-    
-                #subTitle {
-                    text-align: left;
-                    line-height: 1.5;
-                }
-    
-                button#go-to-buy {
-                    width: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-    
-                }
-    
-                #home {
-                    flex-direction: column !important;
-                    padding-top: 20% !important;
-                }
-            }
-            /* 移动端适配 */
-            @media (max-width: 768px) {
-                .header-content {
-                    flex-direction: column;
-                    padding: 30px 15px !important;
-                }
+/* 平板和桌面端布局 */
+@media (min-width: 768px) {
+    #home.header-content {
+        flex-direction: row;
+        justify-content: center;
+        padding: 40px 30px;
+    }
 
-                .header-content>div {
-                    min-width: unset !important;
-                    max-width: 100% !important;
-                    padding: 20px 0 !important;
-                }
+    #home>div:first-child {
+        padding: 0 5% 30px 5%;
+        max-width: 700px;
+    }
 
-                #about {
-                    margin-bottom: 1em !important;
-                }
+    #home img {
+        max-width: 400px;
+        padding-right: 5%;
+    }
+}
 
-                #subTitle_about {
-                    text-align: left !important;
-                    font-size: 1rem !important;
-                    line-height: 1.6 !important;
-                }
+/* 移动端优化 */
+@media (max-width: 480px) {
+    #mainTitle {
+        margin-bottom: 15px;
+    }
 
-                #abouts img {
-                    max-width: 220px !important;
-                }
-            }
+    #subTitle {
+        text-align: left;
+        line-height: 1.5;
+    }
 
-            /* 小屏手机优化 */
-            @media (max-width: 480px) {
-                #about {
-                    font-size: 1.8rem !important;
-                }
+    button#go-to-buy {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
-                #abouts img {
-                    max-width: 180px !important;
-                }
-            }
+    }
+
+    #home {
+        flex-direction: column !important;
+        padding-top: 20% !important;
+    }
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        padding: 30px 15px !important;
+    }
+
+    .header-content>div {
+        min-width: unset !important;
+        max-width: 100% !important;
+        padding: 20px 0 !important;
+    }
+
+    #about {
+        margin-bottom: 1em !important;
+    }
+
+    #subTitle_about {
+        text-align: left !important;
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+    }
+
+    #abouts img {
+        max-width: 220px !important;
+    }
+}
+
+/* 小屏手机优化 */
+@media (max-width: 480px) {
+    #about {
+        font-size: 1.8rem !important;
+    }
+
+    #abouts img {
+        max-width: 180px !important;
+    }
+}
+
+/* 泡泡动画 */
+@keyframes bubble {
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.15);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+
+    75% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.playing-bubble {
+    animation: bubble 0.8s infinite ease-in-out;
+    box-shadow: 0 0 15px rgba(100, 200, 255, 0.7);
+}
+
+/* 音符动画 */
+.music-note {
+    position: absolute;
+    font-size: 18px;
+    color: rgba(255, 215, 0, 0.8);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    animation: float-up 2s ease-out forwards;
+    user-select: none;
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100px) scale(1.2);
+        opacity: 0;
+    }
+}
