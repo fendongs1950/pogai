@@ -627,9 +627,9 @@ document.addEventListener('DOMContentLoaded', function () {
           let mobile = document.getElementsByClassName("upper-canvas ")[0];
           mobile.style.width = "100%";
           mobile.style.height = screenWidth + "px";
-          document.getElementById("app-desc").style.display = "none";
-          document.getElementById("user-actions").style.display = "none";
-          document.getElementById("logo").style.display = "none";
+          // document.getElementById("app-desc").style.display = "none";
+          // document.getElementById("user-actions").style.display = "none";
+          // document.getElementById("logo").style.display = "none";
           let container = document.getElementsByClassName("canvas-container")[0];
           container.style.width = "100%";
           container.style.height = screenWidth + "px";
