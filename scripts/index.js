@@ -1,4 +1,71 @@
 window.onload = async function () {
+    const audio = document.getElementById('avatarAudio');
+    const trigger = document.getElementById('audioTrigger');
+    const notesContainer = document.getElementById('notesContainer');
+    let noteInterval;
+
+    // 音符符号数组
+    const notes = ['♪', '♫', '♩', '♬', '♭', '♮', '♯'];
+
+    // 创建随机音符
+    function createNote() {
+        const note = document.createElement('div');
+        note.className = 'music-note';
+        note.textContent = notes[Math.floor(Math.random() * notes.length)];
+
+        // 随机水平位置 (-15px 到 15px)
+        const leftPos = 25 + (Math.random() * 30 - 15);
+        note.style.left = `${leftPos}px`;
+
+        // 随机动画延迟 (0s 到 0.5s)
+        note.style.animationDelay = `${Math.random() * 0.3}s`;
+
+        notesContainer.appendChild(note);
+
+        // 动画结束后移除元素
+        setTimeout(() => {
+            note.remove();
+        }, 2000);
+    }
+
+    // 点击头像播放/暂停
+    trigger.addEventListener('click', function () {
+        if (audio.paused) {
+            audio.play()
+                .then(() => {
+                    trigger.classList.add('playing-bubble');
+                    // 开始生成音符 (每300ms一个)
+                    noteInterval = setInterval(createNote, 300);
+                })
+                .catch(e => console.log('播放失败:', e));
+        } else {
+            audio.pause();
+            audio.currentTime = 0;
+            trigger.classList.remove('playing-bubble');
+            // 停止生成音符
+            clearInterval(noteInterval);
+        }
+    });
+
+    // 音频结束时自动停止动画和音符
+    audio.addEventListener('ended', () => {
+        trigger.classList.remove('playing-bubble');
+        clearInterval(noteInterval);
+    });
+
+    // 悬停效果
+    trigger.addEventListener('mouseenter', () => {
+        if (audio.paused) {
+            trigger.style.transform = 'scale(1.1)';
+        }
+    });
+
+    trigger.addEventListener('mouseleave', () => {
+        if (audio.paused) {
+            trigger.style.transform = 'scale(1)';
+        }
+    });
+
     createBubbles();
     // 汉堡菜单切换逻辑
     const hamburger = document.querySelector(".hamburger");
@@ -86,7 +153,7 @@ const STEP = {
 const langData = {
     zh: {
         mainTitle: "$&nbsp;POGAI",
-        subTitle: `表情包文化之旅.
+        subTitle: `<span style="font-weight: bold;font-size:x-large;">表情包文化之旅.</span><br>
                 <br>POGAI 对于看着大家无穷无尽地传递 Frog Inu 币感到厌倦了。Inu 类代币已经流行过一阵子了。现在是全球最具辨识度的表情包接管互联网国王地位的时候了。
                 <br>POGAI 来了，要让表情包代币再次伟大起来。在没有任何预售、零交易税、流动性提供者代币已烧毁且合约已放弃的情况下低调发行，这是一枚真正属于人民的代币，永远如此。由纯粹的表情包力量驱动，让POGAI 带领你走向正确的道路。`,
         about: '关于',
@@ -129,44 +196,44 @@ const langData = {
         tokenText: "代币经济",
         buy_btn_text: "去购买",
         buyTexts: "如何购买",
-        display:"展示",
-        contactTelegram1:'最屌,最活跃的Meme社区',
-        ChartText1:"发行总量",
-        ChartText2:"0税收，0套路。就这么简单。",
-        ChartText3:"LP代币已烧毁，合同所有权已放弃。",
-        devText1:"开发者自述",
-        devText2:"开发者：POGAI社区成员 @Memes_168",
-        devText3:"社区不是一个人的社区,建设需基础资源",
-        devText4:"捐赠地址: 点击复制",
-        devText5:"友情链接",
-        devText6:"熊猫头合成器",
-        devText7:"官方1站",
-        devText8:"官方2站",
-        devText9:"贡献者",
-        daoText:"参与治理",
-        coin_analysis:"合约AI检测",
-        POGAI_tool:"POGAI工具",
-    },  
+        display: "展示",
+        contactTelegram1: '最屌,最活跃的Meme社区',
+        ChartText1: "发行总量",
+        ChartText2: "0税收，0套路。就这么简单。",
+        ChartText3: "LP代币已烧毁，合同所有权已放弃。",
+        devText1: "开发者自述",
+        devText2: "开发者：POGAI社区成员 @Memes_168",
+        devText3: "社区不是一个人的社区,建设需基础资源",
+        devText4: "捐赠地址: 点击复制",
+        devText5: "友情链接",
+        devText6: "熊猫头合成器",
+        devText7: "官方1站",
+        devText8: "官方2站",
+        devText9: "贡献者",
+        daoText: "参与治理",
+        coin_analysis: "合约AI检测",
+        POGAI_tool: "POGAI工具",
+    },
     en: {
-        POGAI_tool:"POGAI Tool",
-        coin_analysis:"Contract AI check up",
-        daoText:"Participate in governance",
-        devText1:"Developer",
-        devText2:"DEV：POGAI community member @Memes_168",
-        devText3:"Community is not a person's community, and the construction needs basic resources",
-        devText4:"Donation address: click to copy",
-        devText5:"Friendship links",
-        devText6:"Panda Head Generator",
-        devText7:"official hub",
-        devText8:"official secondary site",
-        devText9:"contributor",
-        ChartText1:"Token Supply",
-        ChartText2:"No Taxes, No Bullshit. It’s that simple.",
-        ChartText3:"LP tokens are burnt, and contract ownership is renounced.",
-        contactTelegram1:'The best, the most active Meme community',
-        display:"Display",
+        POGAI_tool: "POGAI Tool",
+        coin_analysis: "Contract AI check up",
+        daoText: "Participate in governance",
+        devText1: "Developer",
+        devText2: "DEV：POGAI community member @Memes_168",
+        devText3: "Community is not a person's community, and the construction needs basic resources",
+        devText4: "Donation address: click to copy",
+        devText5: "Friendship links",
+        devText6: "Panda Head Generator",
+        devText7: "official hub",
+        devText8: "official secondary site",
+        devText9: "contributor",
+        ChartText1: "Token Supply",
+        ChartText2: "No Taxes, No Bullshit. It’s that simple.",
+        ChartText3: "LP tokens are burnt, and contract ownership is renounced.",
+        contactTelegram1: 'The best, the most active Meme community',
+        display: "Display",
         mainTitle: "$&nbsp;POGAI",
-        subTitle: `A Journey Through Meme History.
+        subTitle: `<span style="font-weight: bold;font-size:x-large;">A Journey Through Meme History.</span><br>
                 <br>POGAI is tired of watching everyone play hot potato with the endless derivative Frog Inu coins. The Inu’s have had their day. It’s time for the most recognizable meme in the world to take his reign as king of the internet.
                 <br>POGAI is here to make memecoins great again. Launched stealth with no presale, zero taxes, LP burnt and contract renounced, $POGAI is a coin for the people, forever. Fueled by pure memetic power, let $POGAI show you the way.`,
         about: 'about',
@@ -593,5 +660,4 @@ function smoothScrollTo(id) {
         requestAnimationFrame(animation);
     }
 }
-
 
