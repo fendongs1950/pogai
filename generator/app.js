@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 组件挂载完成后执行
     mounted() {
       this.initCanvas(); // 初始化画布
-      // this.loadingCanvas(); // 加载同步画布
+      this.loadingCanvas(); // 加载同步画布
       let randomNumber = this.getMemeRandomNumber(this.DefaultType);
       let data = {
         id: this.DefaultType,
