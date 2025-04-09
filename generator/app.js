@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', function () {
       strokeColor: '#000000', // 描边颜色
 
       // 水印相关属性
-      watermarkText: ' POGAI 熊猫人 ', // 水印文字
+      watermarkText: ' POGAI DFCC ', // 水印文字
       showWatermark: true, // 是否显示水印
 
       // 控制各个工具面板的展开/折叠状态
@@ -317,7 +317,15 @@ document.addEventListener('DOMContentLoaded', function () {
         text: true,      // 文本面板
         stickers: false,  // 贴纸面板
         watermark: false  // 水印面板
-      }
+      },
+      history: [],
+      historyIndex: -1,//历史记录索引
+      isDrawing: false,
+      brushColor: '#000000',
+      brushSize: 5,
+      //定义两个变量一个是重做，一个 是撤销
+      redo: false,//重做
+      undo: false,//撤销
     },
     computed: {
       memeTypeData() {
@@ -347,6 +355,266 @@ document.addEventListener('DOMContentLoaded', function () {
     },
 
     methods: {
+      // 切换画笔模式
+      toggleBrush() {
+        this.isDrawing = !this.isDrawing;
+        this.canvas.isDrawingMode = this.isDrawing;
+
+        if (this.isDrawing) {
+          this.canvas.freeDrawingBrush.color = this.brushColor;
+          this.canvas.freeDrawingBrush.width = this.brushSize;
+          this.canvas.selection = false; // 禁用选择模式
+        } else {
+          this.canvas.selection = true; // 恢复选择模式
+        }
+      },
+      // 保存画布状态
+      saveState() {
+        // 只保留最新的50个状态以防止内存问题
+        if(this.redo||this.undo) return;//重做和撤销不保存状态
+        if (this.historyIndex < this.history.length - 1) {
+          this.history = this.history.slice(0, this.historyIndex + 1);
+        }
+
+        if (this.history.length >= 50) {
+          this.history.shift();
+        }
+
+        this.history.push(JSON.stringify(this.canvas.toDatalessJSON()));
+        this.historyIndex = this.history.length - 1;
+      },
+      //撤销操作
+      async undoAction() {
+        this.undo = true;
+        if (this.historyIndex > 0) {
+            try {
+              this.historyIndex--;
+              await this.loadState(); // 等待状态加载完成
+            } finally {
+              // 确保无论如何都清除标记
+              setTimeout(() => {
+                this.undo = false;
+              }, 100); // 稍作延迟确保 Fabric.js 内部事件触发完毕
+            }
+        }
+      },
+      
+      // 重做操作
+      async redoAction() {
+        this.redo = true;
+        if (this.historyIndex < this.history.length - 1) {
+            
+            try {
+              this.historyIndex++;
+              await this.loadState(); // 等待状态加载完成
+            } finally {
+              // 确保无论如何都清除标记
+              setTimeout(() => {
+                this.redo = false;
+              }, 100); // 稍作延迟确保 Fabric.js 内部事件触发完毕
+            }
+        }
+      },
+      // 加载状态
+      loadState() {
+        this.canvas.loadFromJSON(this.history[this.historyIndex], () => {
+            this.canvas.renderAll();
+        });
+      },
+      // 打开颜色选择器
+      openColorPicker() {
+          // 创建颜色选择面板
+          const panel = document.createElement('div');
+          panel.style.position = 'fixed';
+          panel.style.top = '50%';
+          panel.style.left = '50%';
+          panel.style.transform = 'translate(-50%, -50%)';
+          panel.style.backgroundColor = 'white';
+          panel.style.padding = '20px';
+          panel.style.borderRadius = '10px';
+          panel.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
+          panel.style.zIndex = '1000';
+          panel.style.display = 'flex';
+          panel.style.flexDirection = 'column';
+          panel.style.gap = '15px';
+          panel.style.width = '280px';
+          panel.style.maxWidth = '90vw';
+          
+          // 标题
+          const title = document.createElement('div');
+          title.textContent = '画笔设置';
+          title.style.fontSize = '18px';
+          title.style.fontWeight = '600';
+          title.style.color = '#333';
+          title.style.textAlign = 'center';
+          title.style.marginBottom = '10px';
+          
+          // 颜色选择器
+          const colorGroup = document.createElement('div');
+          colorGroup.style.display = 'flex';
+          colorGroup.style.alignItems = 'center';
+          colorGroup.style.gap = '10px';
+          
+          const colorLabel = document.createElement('span');
+          colorLabel.textContent = '颜色:';
+          colorLabel.style.fontWeight = '500';
+          colorLabel.style.width = '50px';
+          
+          const colorInput = document.createElement('input');
+          colorInput.type = 'color';
+          colorInput.value = this.brushColor;
+          colorInput.style.flex = '1';
+          colorInput.style.height = '36px';
+          colorInput.style.borderRadius = '4px';
+          colorInput.style.border = '1px solid #ddd';
+          colorInput.style.cursor = 'pointer';
+          
+          colorGroup.appendChild(colorLabel);
+          colorGroup.appendChild(colorInput);
+          
+          // 画笔粗细设置
+          const sizeGroup = document.createElement('div');
+          sizeGroup.style.display = 'flex';
+          sizeGroup.style.flexDirection = 'column';
+          sizeGroup.style.gap = '5px';
+          sizeGroup.style.alignItems = 'center';
+          
+          const sizeLabel = document.createElement('div');
+          sizeLabel.style.display = 'flex';
+          sizeLabel.style.justifyContent = 'space-between';
+          sizeLabel.style.width = '100%';
+          
+          const sizeText = document.createElement('span');
+          sizeText.textContent = '粗细:';
+          sizeText.style.fontWeight = '500';
+          
+          const sizeValue = document.createElement('span');
+          sizeValue.textContent = `${this.brushSize}px`;
+          sizeValue.style.color = '#666';
+          
+          sizeLabel.appendChild(sizeText);
+          sizeLabel.appendChild(sizeValue);
+          
+          // 画笔大小预览圆形
+          const sizePreview = document.createElement('div');
+          sizePreview.style.width = `${this.brushSize}px`;
+          sizePreview.style.height = `${this.brushSize}px`;
+          sizePreview.style.borderRadius = '50%';
+          sizePreview.style.backgroundColor = this.brushColor;
+          sizePreview.style.margin = '10px 0';
+          sizePreview.style.transition = 'all 0.2s ease';
+          
+          const sizeInput = document.createElement('input');
+          sizeInput.type = 'range';
+          sizeInput.min = '1';
+          sizeInput.max = '30';
+          sizeInput.value = this.brushSize;
+          sizeInput.style.width = '100%';
+          sizeInput.style.accentColor = this.brushColor;
+          
+          // 实时更新粗细显示和预览
+          sizeInput.addEventListener('input', () => {
+            const newSize = sizeInput.value;
+            sizeValue.textContent = `${newSize}px`;
+            sizePreview.style.width = `${newSize}px`;
+            sizePreview.style.height = `${newSize}px`;
+            sizePreview.style.backgroundColor = colorInput.value;
+            sizeInput.style.accentColor = colorInput.value;
+          });
+          
+          // 颜色变化时更新预览
+          colorInput.addEventListener('input', () => {
+            sizePreview.style.backgroundColor = colorInput.value;
+            sizeInput.style.accentColor = colorInput.value;
+          });
+          
+          sizeGroup.appendChild(sizeLabel);
+          sizeGroup.appendChild(sizePreview);
+          sizeGroup.appendChild(sizeInput);
+          
+          // 按钮容器
+          const buttonGroup = document.createElement('div');
+          buttonGroup.style.display = 'flex';
+          buttonGroup.style.justifyContent = 'flex-end';
+          buttonGroup.style.gap = '10px';
+          buttonGroup.style.marginTop = '10px';
+          
+          // 取消按钮
+          const cancelBtn = document.createElement('button');
+          cancelBtn.textContent = '取消';
+          cancelBtn.style.padding = '8px 16px';
+          cancelBtn.style.backgroundColor = 'transparent';
+          cancelBtn.style.color = '#666';
+          cancelBtn.style.border = '1px solid #ddd';
+          cancelBtn.style.borderRadius = '4px';
+          cancelBtn.style.cursor = 'pointer';
+          
+          // 确认按钮
+          const confirmBtn = document.createElement('button');
+          confirmBtn.textContent = '确定';
+          confirmBtn.style.padding = '8px 16px';
+          confirmBtn.style.backgroundColor = this.brushColor;
+          confirmBtn.style.color = 'white';
+          confirmBtn.style.border = 'none';
+          confirmBtn.style.borderRadius = '4px';
+          confirmBtn.style.cursor = 'pointer';
+          confirmBtn.style.transition = 'background-color 0.2s';
+          
+          // 按钮颜色随选择变化
+          colorInput.addEventListener('input', () => {
+            confirmBtn.style.backgroundColor = colorInput.value;
+          });
+          
+          // 关闭面板函数
+          const closePanel = () => {
+            document.body.removeChild(panel);
+            document.body.removeChild(overlay);
+          };
+          
+          // 取消按钮点击事件
+          cancelBtn.addEventListener('click', closePanel);
+          
+          // 确认按钮点击事件
+          confirmBtn.addEventListener('click', () => {
+            this.brushColor = colorInput.value;
+            this.brushSize = parseInt(sizeInput.value);
+            
+            if (this.isDrawing) {
+              this.canvas.freeDrawingBrush.color = this.brushColor;
+              this.canvas.freeDrawingBrush.width = this.brushSize;
+            }
+            
+            closePanel();
+          });
+          
+          // 半透明遮罩层
+          const overlay = document.createElement('div');
+          overlay.style.position = 'fixed';
+          overlay.style.top = '0';
+          overlay.style.left = '0';
+          overlay.style.width = '100%';
+          overlay.style.height = '100%';
+          overlay.style.backgroundColor = 'rgba(0,0,0,0.5)';
+          overlay.style.zIndex = '999';
+          
+          // 点击遮罩层关闭面板
+          overlay.addEventListener('click', closePanel);
+          
+          // 组装面板
+          panel.appendChild(title);
+          panel.appendChild(colorGroup);
+          panel.appendChild(sizeGroup);
+          buttonGroup.appendChild(cancelBtn);
+          buttonGroup.appendChild(confirmBtn);
+          panel.appendChild(buttonGroup);
+          
+          // 添加到DOM
+          document.body.appendChild(overlay);
+          document.body.appendChild(panel);
+          
+          // 聚焦颜色选择器以便键盘操作
+          colorInput.focus();
+      },
       selectTemplate(template) {
         this.DefaultType = template.id; // 设置当前选中的模板ID
         this.loadTemplateFromType(template);
@@ -407,6 +675,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // 确保对象可交互
+        // 监听画布变化，用于撤销/重做功能
+        this.canvas.on('object:modified', this.saveState);
+        this.canvas.on('object:added', this.saveState);
+        this.canvas.on('object:removed', this.saveState);
         this.canvas.on('selection:created', () => {
           console.log('对象被选中:', this.canvas.getActiveObject());
         });

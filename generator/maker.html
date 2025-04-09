@@ -7,8 +7,8 @@
   <title>POGAI熊猫头表情包合成器</title>
   <link rel="icon" href="favicon.png" type="image/png">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+  <script src="vue.js"></script>
+  <script src="fabric.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -30,7 +30,7 @@
     </header>
     <div class="editor-container">
       <!-- 左侧工具栏 -->
-      <div class="toolbar" id="toolbar">
+      <div class="toolbar">
         
         <!-- 模板选择 -->
         <div class="tool-section">
@@ -123,7 +123,7 @@
         </div>
       </div>
       <!-- 右侧画布区域 -->
-      <div id="main-canvas-container">
+      <div>
           <div class="canvas-container-main">
             <canvas id="canvas" width="500" height="500"></canvas>
           </div>
@@ -162,6 +162,70 @@
         <p>&copy; 2025 POGAI熊猫头表情包合成器. 保留所有权利.</p>
       </div>
     </footer>
+    <div id="mobileToolbar">
+      <!-- 撤销 -->
+      <div class="tool-section">
+        <button @click="undoAction" class="tool-btn">
+          <i class="fas fa-undo"></i>
+        </button>
+      </div>
+    
+      <!-- 重做 -->
+      <div class="tool-section">
+        <button @click="redoAction" class="tool-btn">
+          <i class="fas fa-redo"></i>
+        </button>
+      </div>
+    
+      <!-- 画笔 -->
+      <div class="tool-section">
+        <button @click="toggleBrush" class="tool-btn">
+          <i class="fas fa-paint-brush"></i>
+        </button>
+      </div>
+    
+      <!-- 颜色选择器 -->
+      <div class="tool-section">
+        <button @click="openColorPicker" class="tool-btn">
+          <i class="fas fa-palette"></i>
+        </button>
+      </div>
+    
+      <!-- 删除 -->
+      <div class="tool-section">
+        <button @click="deleteSelected" class="tool-btn">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    
+      <!-- 表情类型 -->
+      <div class="tool-section">
+        <button @click="toggleEmojiPanel" class="tool-btn">
+          <i class="fas fa-smile"></i>
+        </button>
+      </div>
+    
+      <!-- 文字工具 -->
+      <div class="tool-section">
+        <button @click="toggleTextTool" class="tool-btn">
+          <i class="fas fa-font"></i>
+        </button>
+      </div>
+    
+      <!-- 上传图片 -->
+      <div class="tool-section">
+        <button @click="uploadImage" class="tool-btn">
+          <i class="fas fa-upload"></i>
+        </button>
+      </div>
+    
+      <!-- 导出 -->
+      <div class="tool-section">
+        <button @click="exportImage" class="tool-btn">
+          <i class="fas fa-download"></i>
+        </button>
+      </div>
+    </div>
   </div>
 
   
