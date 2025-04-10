@@ -424,6 +424,8 @@ document.addEventListener('DOMContentLoaded', function () {
       // 打开颜色选择器
       openColorPicker() {
           // 创建颜色选择面板
+          document.getElementById('mobileToolbar').
+          style.transform = `translateX(-100%)`;
           const panel = document.createElement('div');
           panel.style.position = 'fixed';
           panel.style.top = '50%';
@@ -569,6 +571,8 @@ document.addEventListener('DOMContentLoaded', function () {
           const closePanel = () => {
             document.body.removeChild(panel);
             document.body.removeChild(overlay);
+            document.getElementById('mobileToolbar').
+            style.transform = `translateX(0%)`;
           };
           
           // 取消按钮点击事件
@@ -635,6 +639,10 @@ document.addEventListener('DOMContentLoaded', function () {
       randomLoadText() {
         let randomIndex = this.getRandomIndex();
         let randomText = this.memeType[this.DefaultType - 1].text[randomIndex];
+        
+        // 直接通过 ref 更新
+        this.$refs.textInput.value = randomText;
+        // 同时更新数据绑定
         this.textContent = randomText;
       },
       randomLoadTemplate() {
@@ -1099,9 +1107,89 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.key === 'Delete') { //|| e.key === 'Backspace'
           this.deleteSelected();
         }
-      }
+      },
+      // togglePanel(panelId, bottomValue = '100%') {
+      //   const panel = document.getElementById(panelId);
+      //   if (!panel) return;
+        
+      //   // 检查当前状态
+      //   const isActive = panel.classList.contains('active-panel');
+        
+      //   if (isActive) {
+      //     // 关闭面板
+      //     panel.classList.remove('active-panel');
+      //     panel.style.transform = 'translateY(100%)';
+      //     document.removeEventListener('click', this.handleOutsideClick);
+      //   } else {
+      //     // 打开面板
+      //     panel.classList.add('active-panel');
+      //     panel.style.transform = `translateY(-${bottomValue})`;
+      //     //panel.style.bottom = bottomValue;
+      //     // 添加全局点击监听
+      //     this.handleOutsideClick = (event) => {
+      //       if (!panel.contains(event.target)) {
+      //         this.togglePanel(panelId, bottomValue);
+      //       }
+      //     };
+      //     document.addEventListener('click', this.handleOutsideClick);
+      //   }
+      // },
+      togglePanel(panelId, show = true, targetPosition = '100%') {
+        const panel = document.getElementById(panelId);
+        if (!panel) return;
+      
+        if (show) {
+          // 显示面板：移动到指定位置
+          document.getElementById('mobileToolbar').
+          style.transform = `translateX(-100%)`;
+          panel.style.transform = `translateY(-${targetPosition})`;
+          // this.handleOutsideClick = (event) => {
+          //   if (!panel.contains(event.target)) {
+          //     this.togglePanel(panelId,false, '-100%');
+          //   }
+          // };
+          // document.addEventListener('click', this.handleOutsideClick);
+        } else {
+          // 隐藏面板：移回底部
+          // document.removeEventListener('click', this.handleOutsideClick);
+          panel.style.transform = 'translateY(100%)';
+          document.getElementById('mobileToolbar').
+          style.transform = `translateX(0%)`;
+        }
+      },
+      //写一个隐藏工具栏的函数
+      hideToolbar(panelId) {
+        this.togglePanel(panelId, false, '-100%');
+      },
+      // 翻转图片
+  flipImage(direction) {
+    const activeObject = this.canvas.getActiveObject();
+    if (!activeObject) return;
+    
+    if (direction === 'horizontal') {
+      activeObject.set('flipX', !activeObject.flipX);
+    } else if (direction === 'vertical') {
+      activeObject.set('flipY', !activeObject.flipY);
+    }
+    
+    activeObject.setCoords();
+    this.canvas.renderAll();
+    this.saveState(); // 如果需要撤销功能
+  },
+  
+  // 旋转图片
+  rotateImage(degrees) {
+    const activeObject = this.canvas.getActiveObject();
+    if (!activeObject) return;
+    
+    const newAngle = (activeObject.angle + degrees) % 360;
+    activeObject.angle = newAngle;
+    activeObject.setCoords();
+    this.canvas.renderAll();
+    this.saveState(); // 如果需要撤销功能
+  }
     },
-
+    
     // 组件销毁前执行
     beforeDestroy() {
       // 移除事件监听器

@@ -18,6 +18,8 @@ body {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow-y: hidden;
 }
 
 h1 {
@@ -174,7 +176,12 @@ button:hover {
     max-height: none;
     order: 2;
   }
-
+  #toolbar{
+    display: none;
+  }
+  #mobileToolbar{
+    display: block !important;
+  }
   .app {
     width: 100vw;
     padding: 0 !important;
@@ -394,6 +401,8 @@ button:hover {
 .logo {
   height: 40px;
   width: auto;
+  background-color: rgba(255, 255, 255, 0.394);
+  border-radius: 50%;
 }
 
 .app-name {
@@ -564,6 +573,7 @@ button:hover {
   font-size: 10px;
   border-radius: 2px;
   border: 3px solid #02132e;
+  display: none;
 }
 #mobileToolbar::before{
   content: "...";
@@ -577,7 +587,7 @@ button:hover {
 }
 #mobileToolbar .tool-section {
   margin: 0;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid transparent;
 }
 #mobileToolbar button{
   margin-bottom: 5px !important; /* 移动端按钮间距 */
@@ -590,4 +600,67 @@ button:hover {
 /* 选中最后一个 .tool-section */
 #mobileToolbar .tool-section:last-child {
   border-bottom:none; /* 去掉底部边框 */
+}
+.mobiletool-section {
+  width: 100vw;
+  height: 50vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  bottom: -50vh;
+  left: 0;
+  background: white;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  padding: 15px;
+}
+.mobiletool-section {
+  width: 100vw;
+  height: 50vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: fixed;
+  /* bottom: -50vh; */
+  left: 0;
+  background: white;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  padding: 15px;
+}
+.mobile-panel {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  background: white;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+  z-index: 1000;
+  transition: transform 0.3s ease-out;
+  /* 初始位置：完全隐藏 */
+  transform: translateY(100%);
+  
+}
+/* 旋转按钮动画 */
+.fa-redo {
+  transition: transform 0.3s ease;
+}
+.tool-btn:active .fa-redo {
+  transform: rotate(90deg);
+}
+.select-pattern::after{
+  content: "选择模式";
+  color: #a8a8a8;
+  position: absolute;
+  top: 15%;
+  right: 10px;
+  font-size: 10px;
+}
+.paintingBrush-pattern::after{
+  content: "画笔模式";
+  color: #a8a8a8;
+  position: absolute;
+  top: 15%;
+  right: 10px;
+  font-size: 10px;
 }

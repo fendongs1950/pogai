@@ -30,7 +30,7 @@
     </header>
     <div class="editor-container">
       <!-- 左侧工具栏 -->
-      <div class="toolbar">
+      <div class="toolbar" id="toolbar">
         
         <!-- 模板选择 -->
         <div class="tool-section">
@@ -53,7 +53,7 @@
             文字工具
           </h3>
           <div class="section-content" v-show="activeSections.text">
-            <input type="text" v-model="textContent" placeholder="输入文字内容" @keyup.enter="addText">
+            <input type="text" ref="textInput" v-model="textContent" placeholder="输入文字内容" @keyup.enter="addText">
             <label>字体大小: {{ fontSize }}px</label>
             <input type="range" v-model="fontSize" min="10" max="100">
             <label>文字颜色</label>
@@ -124,7 +124,7 @@
       </div>
       <!-- 右侧画布区域 -->
       <div>
-          <div class="canvas-container-main">
+          <div class="canvas-container-main select-pattern">
             <canvas id="canvas" width="500" height="500"></canvas>
           </div>
 
@@ -163,6 +163,12 @@
       </div>
     </footer>
     <div id="mobileToolbar">
+      <!-- 模板 -->
+      <div class="tool-section">
+        <button  @click="togglePanel('templetTool')" class="tool-btn">
+          <i class="fas fa-th-large"></i>
+        </button>
+      </div>
       <!-- 撤销 -->
       <div class="tool-section">
         <button @click="undoAction" class="tool-btn">
@@ -200,21 +206,38 @@
     
       <!-- 表情类型 -->
       <div class="tool-section">
-        <button @click="toggleEmojiPanel" class="tool-btn">
+        <button @click="togglePanel('stickerTool')" class="tool-btn">
           <i class="fas fa-smile"></i>
         </button>
       </div>
     
       <!-- 文字工具 -->
       <div class="tool-section">
-        <button @click="toggleTextTool" class="tool-btn">
+        <button @click="togglePanel('textTool')" class="tool-btn">
           <i class="fas fa-font"></i>
         </button>
       </div>
-    
+    <!-- 在您的工具栏中添加以下按钮 -->
+<div class="tool-section">
+  <button @click="flipImage('horizontal')" class="tool-btn" title="水平翻转">
+    <i class="fas fa-arrows-alt-h"></i>
+  </button>
+</div>
+
+<div class="tool-section">
+  <button @click="flipImage('vertical')" class="tool-btn" title="垂直翻转">
+    <i class="fas fa-arrows-alt-v"></i>
+  </button>
+</div>
+
+<div class="tool-section">
+  <button @click="rotateImage(90)" class="tool-btn" title="旋转90°">
+    <i class="fas fa-redo"></i>
+  </button>
+</div>
       <!-- 上传图片 -->
       <div class="tool-section">
-        <button @click="uploadImage" class="tool-btn">
+        <button @click="triggerUpload" class="tool-btn">
           <i class="fas fa-upload"></i>
         </button>
       </div>
@@ -223,6 +246,69 @@
       <div class="tool-section">
         <button @click="exportImage" class="tool-btn">
           <i class="fas fa-download"></i>
+        </button>
+      </div>
+    </div>
+    <!-- 文字工具 -->
+    <div class="mobiletool-section" id="textTool">
+      <h3 style="width: 100%;text-align: center;display: flex;align-items: center;justify-content: space-between;">
+        <span></span>
+        <span>文字工具</span>
+        <i class="fas fa-times" @click="hideToolbar('textTool')" style="cursor:pointer">
+        </i>
+      </h3>
+      <div class="section-content" v-show="activeSections.text">
+        <input type="text" ref="textInput" v-model="textContent" placeholder="输入文字内容" @keyup.enter="addText">
+        <label>字体大小: {{ fontSize }}px</label>
+        <input type="range" v-model="fontSize" min="10" max="100">
+        <div style="display: flex;justify-content: space-between;align-items: center;">
+        <span>
+        <label style="width: 100%;text-align: center;display: block;">文字颜色</label>
+        <input type="color" style="height: 40px;" v-model="textColor">
+        </span>
+        <span>
+        <label style="width: 100%;text-align: center;display: block;">描边颜色</label>
+        <input type="color" style="height: 40px;" v-model="strokeColor">
+        </span>
+        </div>
+        <button @click="addText">
+          <i class="fas fa-font"></i> 添加文字
+        </button>
+        <button @click="randomLoadText">
+          <i class="fas fa-dice"></i> 随机文字
+        </button>
+      </div>
+    </div>
+
+    <!-- 贴纸工具 -->
+    <div class="mobiletool-section" id="stickerTool">
+      <h3 style="width: 100%;text-align: center;display: flex;align-items: center;justify-content: space-between;">
+        <span></span>
+        <span>贴纸工具</span>
+        <i class="fas fa-times" @click="hideToolbar('stickerTool')" style="cursor:pointer">
+        </i>
+      </h3>
+      <div class="section-content" v-show="true">
+        <div class="sticker-grid">
+          <div v-for="(sticker, index) in stickers" :key="index" class="sticker-item" @click="addSticker(sticker)">
+            {{ sticker }}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 模板选择 -->
+    <div class="mobiletool-section" id="templetTool">
+      <h3 style="width: 100%;text-align: center;display: flex;align-items: center;justify-content: space-between;">
+        <span></span>
+        <span>表情类型</span>
+        <i class="fas fa-times" @click="hideToolbar('templetTool')" style="cursor:pointer">
+        </i>
+      </h3>
+      <div class="section-content" v-show="true">
+        <button v-for="template in memeTypeData" :key="template.id" class="template-btn"
+          :class="{ 'active': DefaultType === template.id }" @click="selectTemplate(template)">
+          {{ template.name }}
         </button>
       </div>
     </div>
