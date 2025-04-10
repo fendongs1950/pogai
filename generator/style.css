@@ -650,17 +650,21 @@ button:hover {
 }
 .select-pattern::after{
   content: "选择模式";
-  color: #a8a8a8;
+  color: #080808;
   position: absolute;
-  top: 15%;
+  top: 55%;
   right: 10px;
   font-size: 10px;
+  text-shadow: 0 0 5px white;
+  font-weight: bold;
 }
 .paintingBrush-pattern::after{
   content: "画笔模式";
-  color: #a8a8a8;
+  color: #080808;
   position: absolute;
-  top: 15%;
+  top: 55%;
   right: 10px;
   font-size: 10px;
+  text-shadow: 0 0 5px white;
+  font-weight: bold;
 }

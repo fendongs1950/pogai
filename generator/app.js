@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   vueData = new Vue({
     el: '#app', // 挂载到ID为app的DOM元素
     data: {
+      pattern: false, // 选择的模式 false 是选择模式
       // 画布实例
       canvas: null,
       memeType: [
@@ -357,6 +358,11 @@ document.addEventListener('DOMContentLoaded', function () {
     methods: {
       // 切换画笔模式
       toggleBrush() {
+        let dom = document.getElementById('main-canvas-container');
+        if(!this.pattern)
+        this.replaceClass(dom,'select-pattern','paintingBrush-pattern');
+        else
+        this.replaceClass(dom,'paintingBrush-pattern','select-pattern');
         this.isDrawing = !this.isDrawing;
         this.canvas.isDrawingMode = this.isDrawing;
 
@@ -1100,6 +1106,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         return new Blob([u8arr], { type: mime });
+      },
+      replaceClass(element, oldClass, newClass) {
+        if (!element || !oldClass || !newClass) return;
+        this.pattern = !this.pattern;
+        // 移除旧类名（兼容包含多个类名的情况）
+        element.classList.remove(oldClass);
+        
+        // 添加新类名（避免重复添加）
+        if (!element.classList.contains(newClass)) {
+          element.classList.add(newClass);
+        }
       },
       // 处理键盘事件
       handleKeyDown(e) {
