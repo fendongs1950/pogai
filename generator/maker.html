@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="style.css">
   <script src="vue.js"></script>
   <script src="fabric.min.js"></script>
+  <script src="vueData.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
@@ -252,12 +253,12 @@
     <!-- 文字工具 -->
     <div class="mobiletool-section" id="textTool">
       <h3 style="width: 100%;text-align: center;display: flex;align-items: center;justify-content: space-between;">
-        <span></span>
+        <i @click="deleteSelected" class="fas fa-trash-alt"></i>
         <span>文字工具</span>
         <i class="fas fa-times" @click="hideToolbar('textTool')" style="cursor:pointer">
         </i>
       </h3>
-      <div class="section-content" v-show="activeSections.text">
+      <div class="section-content" style="overflow-y: auto;height:100% ;" v-show="true">
         <input type="text" ref="textInput" v-model="textContent" placeholder="输入文字内容" @keyup.enter="addText">
         <label>字体大小: {{ fontSize }}px</label>
         <input type="range" v-model="fontSize" min="10" max="100">
@@ -283,12 +284,12 @@
     <!-- 贴纸工具 -->
     <div class="mobiletool-section" id="stickerTool">
       <h3 style="width: 100%;text-align: center;display: flex;align-items: center;justify-content: space-between;">
-        <span></span>
+        <i @click="deleteSelected" class="fas fa-trash-alt"></i>
         <span>贴纸工具</span>
         <i class="fas fa-times" @click="hideToolbar('stickerTool')" style="cursor:pointer">
         </i>
       </h3>
-      <div class="section-content" v-show="true">
+      <div class="section-content" style="overflow-y: auto;height:100% ;" v-show="true">
         <div class="sticker-grid">
           <div v-for="(sticker, index) in stickers" :key="index" class="sticker-item" @click="addSticker(sticker)">
             {{ sticker }}
@@ -300,12 +301,12 @@
     <!-- 模板选择 -->
     <div class="mobiletool-section" id="templetTool">
       <h3 style="width: 100%;text-align: center;display: flex;align-items: center;justify-content: space-between;">
-        <span></span>
+        <i @click="deleteSelected" class="fas fa-trash-alt"></i>
         <span>表情类型</span>
         <i class="fas fa-times" @click="hideToolbar('templetTool')" style="cursor:pointer">
         </i>
       </h3>
-      <div class="section-content" v-show="true">
+      <div class="section-content" style="overflow-y: auto;height:100% ;" v-show="true">
         <button v-for="template in memeTypeData" :key="template.id" class="template-btn"
           :class="{ 'active': DefaultType === template.id }" @click="selectTemplate(template)">
           {{ template.name }}
