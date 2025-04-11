@@ -348,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         this.randomLoadText();
       },
-      getRandomIndex(max = 9) {
+      getRandomIndex(max = 29) {
         return Math.floor(Math.random() * (max + 1));
       },
       randomLoadText() {
