@@ -100,7 +100,7 @@ window.onload = async function () {
     });
     document.getElementsByClassName('contactTwitter')[0].addEventListener('click', function (e) {
         e.preventDefault();
-        openAdvancedTab('https://x.com/pogaibinance');
+        openAdvancedTab('https://x.com/pogaibnb');
     });
 
     document.getElementById('devX').addEventListener('click', function (e) {
@@ -109,7 +109,7 @@ window.onload = async function () {
     });
     document.getElementById('abaoX').addEventListener('click', function (e) {
         e.preventDefault();
-        openAdvancedTab('https://x.com/pogaibinance');
+        openAdvancedTab('https://x.com/abao0X');
     });
     document.getElementById('totodoX').addEventListener('click', function (e) {
         e.preventDefault();
